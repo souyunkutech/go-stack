@@ -1,0 +1,986 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+<title>资料索引 - Go技术栈</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+    <meta name="description" content="交流社区中文社区 Go技术栈：个专注于Go技术栈的研究与知识分享的网站 Golang 中国：国内较早的 Go 社区，汇聚各类信息与服务 Study Golang：国内 Go 社区先驱，同样汇聚各类信息与服务 Revel 交流论坛：Revel 框架的中文社区 GoCN Forum：Go 语言爱好者中文交流论坛">
+<meta name="keywords" content="学习资料,GoLang">
+<meta property="og:type" content="article">
+<meta property="og:title" content="资料索引">
+<meta property="og:url" content="https://gostack.souyunku.com/2019/04/06/data-index/index.html">
+<meta property="og:site_name" content="Go技术栈">
+<meta property="og:description" content="交流社区中文社区 Go技术栈：个专注于Go技术栈的研究与知识分享的网站 Golang 中国：国内较早的 Go 社区，汇聚各类信息与服务 Study Golang：国内 Go 社区先驱，同样汇聚各类信息与服务 Revel 交流论坛：Revel 框架的中文社区 GoCN Forum：Go 语言爱好者中文交流论坛">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://gostack.souyunku.com/images/og_image.png">
+<meta property="og:updated_time" content="2019-04-11T02:30:00.921Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="资料索引">
+<meta name="twitter:description" content="交流社区中文社区 Go技术栈：个专注于Go技术栈的研究与知识分享的网站 Golang 中国：国内较早的 Go 社区，汇聚各类信息与服务 Study Golang：国内 Go 社区先驱，同样汇聚各类信息与服务 Revel 交流论坛：Revel 框架的中文社区 GoCN Forum：Go 语言爱好者中文交流论坛">
+<meta name="twitter:image" content="https://gostack.souyunku.com/images/og_image.png">
+
+
+
+
+
+
+
+<link rel="icon" href="/images/favicon.svg">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/monokai-sublime.css">
+
+
+    
+    
+    
+    <style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
+    
+
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+    
+
+    
+    
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+
+    
+    
+    
+    
+
+<link rel="stylesheet" href="/css/back-to-top.css">
+
+
+    
+    
+
+    
+    
+<script>
+var _hmt = _hmt || [];
+(function() {
+    var hm = document.createElement("script");
+    hm.src = "//hm.baidu.com/hm.js?a1b4762e2491f4d27483755ea7249b7e";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+    
+    
+
+    
+    
+<link rel="stylesheet" href="/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+    
+    
+    
+
+    
+    
+    
+
+
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="is-3-column">
+    <nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/">
+            
+                <img src="/images/logo.png" alt="资料索引" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item" href="/">主页</a>
+                
+                <a class="navbar-item" href="/archives">文章列表</a>
+                
+                <a class="navbar-item" href="/categories">分类</a>
+                
+                <a class="navbar-item" href="/tags">标签</a>
+                
+                <a class="navbar-item" href="https://team.souyunku.com/zh-cn/blog/02video.html">4T资料</a>
+                
+                <a class="navbar-item" href="/about">关于</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                    
+                    
+                    <a class="navbar-item" target="_blank" title="GitHub" href="https://github.com/souyunkutech">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                    
+                
+                
+                <a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;">
+                    <i class="fas fa-list-ul"></i>
+                </a>
+                
+                
+                <a class="navbar-item search" title="搜索" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main"><div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2019-04-06T04:55:37.000Z">2019-04-06
+                </time>
+                
+                <div class="level-item">
+                    <a class="has-link-grey -link" href="/categories/资料索引/">资料索引</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    3 分钟 读完 (大约 511 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+            资料索引
+            
+        </h1>
+
+        <div class="content">
+
+            <h2 id="交流社区"><a href="#交流社区" class="headerlink" title="交流社区"></a>交流社区</h2><h3 id="中文社区"><a href="#中文社区" class="headerlink" title="中文社区"></a>中文社区</h3><ul>
+<li><a href="https://gostack.souyunku.com">Go技术栈</a>：个专注于Go技术栈的研究与知识分享的网站</li>
+<li><a href="http://www.golangtc.com/" target="_blank" rel="noopener">Golang 中国</a>：国内较早的 Go 社区，汇聚各类信息与服务</li>
+<li><a href="http://studygolang.com/" target="_blank" rel="noopener">Study Golang</a>：国内 Go 社区先驱，同样汇聚各类信息与服务</li>
+<li><a href="http://gorevel.cn/" target="_blank" rel="noopener">Revel 交流论坛</a>：<a href="https://github.com/revel/revel" target="_blank" rel="noopener">Revel</a> 框架的中文社区</li>
+<li><a href="https://gocn.vip/" target="_blank" rel="noopener">GoCN Forum</a>：Go 语言爱好者中文交流论坛</li>
+</ul>
+<a id="more"></a> 
+<h3 id="英文社区"><a href="#英文社区" class="headerlink" title="英文社区"></a>英文社区</h3><ul>
+<li><a href="https://forum.golangbridge.org/" target="_blank" rel="noopener">Go Forum</a>：Go 语言爱好者英文交流论坛</li>
+<li><a href="https://groups.google.com/forum/#!forum/golang-nuts" target="_blank" rel="noopener">golang-nuts 邮件列表</a>：Go 语言官方指定邮件列表讨论区</li>
+<li><a href="https://plus.google.com/u/0/communities/114112804251407510571" target="_blank" rel="noopener">Go+ 社区</a>：Go 语言官方指定 G+ 社区</li>
+</ul>
+<h3 id="知识图谱"><a href="#知识图谱" class="headerlink" title="知识图谱"></a>知识图谱</h3><ul>
+<li><a href="https://github.com/gocn/knowledge" target="_blank" rel="noopener">Go Knowledge Graph</a>：Go 知识图谱 [<strong>推荐</strong>]</li>
+</ul>
+<h2 id="资料汇总"><a href="#资料汇总" class="headerlink" title="资料汇总"></a>资料汇总</h2><h3 id="官方文档"><a href="#官方文档" class="headerlink" title="官方文档"></a>官方文档</h3><ul>
+<li><a href="http://docs.studygolang.com" target="_blank" rel="noopener">英文文档</a></li>
+<li><a href="http://docscn.studygolang.com" target="_blank" rel="noopener">中文文档</a></li>
+<li><a href="https://studygolang.com/pkgdoc" target="_blank" rel="noopener">标准库中文版</a></li>
+<li><a href="http://tour.studygolang.com" target="_blank" rel="noopener">Go指南</a></li>
+</ul>
+<h3 id="中文资料"><a href="#中文资料" class="headerlink" title="中文资料"></a>中文资料</h3><p><strong>书籍：</strong></p>
+<ul>
+<li><a href="https://github.com/tiancaiamao/go-internals" target="_blank" rel="noopener">《深入解析Go》</a></li>
+<li><a href="https://github.com/astaxie/Go-in-Action" target="_blank" rel="noopener">《Go实战开发》</a></li>
+<li><a href="https://github.com/Unknwon/the-way-to-go_ZH_CN" target="_blank" rel="noopener">《Go入门指南》</a></li>
+<li><a href="https://github.com/polaris1119/The-Golang-Standard-Library-by-Example" target="_blank" rel="noopener">《Go语言标准库》</a></li>
+<li><a href="https://github.com/astaxie/build-web-application-with-golang" target="_blank" rel="noopener">《Go Web 编程》</a></li>
+<li><a href="https://github.com/achun/Go-Blog-In-Action" target="_blank" rel="noopener">《Go语言博客实践》</a></li>
+<li><a href="https://github.com/qyuhen/book" target="_blank" rel="noopener">《Go语言学习笔记》</a></li>
+</ul>
+<p><strong>教程：</strong></p>
+<ul>
+<li><a href="https://github.com/Unknwon/go-fundamental-programming" target="_blank" rel="noopener">《Go编程基础》</a></li>
+<li><a href="https://github.com/Unknwon/go-web-foundation" target="_blank" rel="noopener">《Go Web基础》</a></li>
+<li><a href="https://github.com/Unknwon/go-rock-libraries-showcases" target="_blank" rel="noopener">《Go名库讲解》</a></li>
+<li><a href="https://github.com/hyper-carrot/go_command_tutorial" target="_blank" rel="noopener">《Go 命令教程》</a></li>
+</ul>
+<p><strong>翻译：</strong></p>
+<ul>
+<li><a href="https://golang.org/doc/effective_go.html" target="_blank" rel="noopener">《Effective Go》</a> 英文版</li>
+<li><a href="https://github.com/Unknwon/the-way-to-go_ZH_CN" target="_blank" rel="noopener">《The Way to Go》</a> 中文版</li>
+<li><a href="https://github.com/mikespook/Learning-Go-zh-cn" target="_blank" rel="noopener">《Learning Go》</a> 中文版</li>
+<li><a href="https://github.com/miekg/gobook" target="_blank" rel="noopener">《Learning Go》</a> 英文版=&gt;中文版</li>
+</ul>
+<h3 id="微信公众号"><a href="#微信公众号" class="headerlink" title="微信公众号"></a>微信公众号</h3><p><img src="/images/blog/weixin.png" alt></p>
+
+
+        </div>
+
+        
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/tags/GoLang/">GoLang</a>, <a class="has-link-grey -link" href="/tags/学习资料/">学习资料</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3>
+        <div class="buttons is-centered">
+            
+            
+<a class="button is-info donate">
+    <span class="icon is-small">
+        <i class="fab fa-alipay"></i>
+    </span>
+    <span>支付宝</span>
+    <div class="qrcode"><img src="/images/alipay.png" alt="支付宝"></div>
+</a>
+
+            
+            
+<a class="button is-success donate">
+    <span class="icon is-small">
+        <i class="fab fa-weixin"></i>
+    </span>
+    <span>微信</span>
+    <div class="qrcode"><img src="/images/weixinpay.png" alt="微信"></div>
+</a>
+
+            
+        </div>
+    </div>
+</div>
+
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        <div class="level-start">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/2019/04/11/study-golang-with-us/">
+                <i class="level-item fas fa-chevron-left"></i>
+                <span class="level-item">study_golang_with_us</span>
+            </a>
+        </div>
+        
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="title is-5 has-text-weight-normal">评论</h3>
+        
+<div id="comment-container"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.4.1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1.4.1/dist/gitalk.min.js"></script>
+<script>
+    var gitalk = new Gitalk({
+        clientID: '0f757b6d452b104e0262',
+        clientSecret: '8b0d6010e0dea6514b92afe1cf155beb52e6158f',
+        id: '071c72dd6fa452246cf12ed786ac8f6b',
+        repo: 'go-stack-comment',
+        owner: 'souyunkutech',
+        admin: "souyunku"
+    })
+    gitalk.render('comment-container')
+</script>
+
+    </div>
+</div>
+</div>
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen  has-order-1 column-left is-sticky">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <nav class="level">
+            <div class="level-item has-text-centered">
+                <div>
+                    
+                        <img class="image is-128x128 has-mb-6" src="/images/avatar.png" alt="栈长">
+                    
+                    
+                    <p class="is-size-4 is-block">
+                        栈长
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-block">
+                        专注于Go技术栈的研究与知识分享
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-flex is-flex-center has-text-grey">
+                        <i class="fas fa-map-marker-alt has-mr-7"></i>
+                        <span>北京</span>
+                    </p>
+                    
+                </div>
+            </div>
+        </nav>
+        <nav class="level is-mobile">
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        文章
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        2
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        分类
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        1
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        标签
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        2
+                    </p>
+                </div>
+            </div>
+        </nav>
+        <div class="level">
+            <a class="level-item button is-link is-rounded" href="/about/#%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7" target="_blank">
+                关注我们</a>
+        </div>
+        
+        
+        <div class="level is-mobile">
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Github" href="https://github.com/souyunkutech">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Weixin" href="/about/#%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7">
+                
+                <i class="fab fa-weixin"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Twitter" href="/">
+                
+                <i class="fab fa-twitter"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Dribbble" href="/">
+                
+                <i class="fab fa-dribbble"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="RSS" href="/">
+                
+                <i class="fas fa-rss"></i>
+                
+            </a>
+            
+        </div>
+        
+    </div>
+</div>
+    
+        
+
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            链接
+        </h3>
+        <ul class="menu-list">
+        
+            <li>
+                <a class="level is-mobile" href="https://gostack.souyunku.com" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">Go 技术栈</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">gostack.souyunku.com</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li>
+                <a class="level is-mobile" href="https://team.souyunku.com" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">搜云库技术团队</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">team.souyunku.com</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li>
+                <a class="level is-mobile" href="https://golang.google.cn" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">Go 语言中国官方站点</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">golang.google.cn</span>
+                    </span>
+                </a>
+            </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+
+
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                分类
+            </h3>
+            <ul class="menu-list">
+            <li>
+        <a class="level is-marginless" href="/categories/资料索引/">
+            <span class="level-start">
+                <span class="level-item">资料索引</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            标签云
+        </h3>
+        <a href="/tags/GoLang/" style="font-size: 10px;">GoLang</a> <a href="/tags/学习资料/" style="font-size: 10px;">学习资料</a>
+    </div>
+</div>
+
+    
+    
+        <div class="column-right-shadow is-hidden-widescreen is-sticky">
+        
+            
+<div class="card widget" id="toc">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                目录
+            </h3>
+            <ul class="menu-list"><li>
+        <a class="is-flex" href="#交流社区">
+        <span class="has-mr-6">1</span>
+        <span>交流社区</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#中文社区">
+        <span class="has-mr-6">1.1</span>
+        <span>中文社区</span>
+        </a></li><li>
+        <a class="is-flex" href="#英文社区">
+        <span class="has-mr-6">1.2</span>
+        <span>英文社区</span>
+        </a></li><li>
+        <a class="is-flex" href="#知识图谱">
+        <span class="has-mr-6">1.3</span>
+        <span>知识图谱</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#资料汇总">
+        <span class="has-mr-6">2</span>
+        <span>资料汇总</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#官方文档">
+        <span class="has-mr-6">2.1</span>
+        <span>官方文档</span>
+        </a></li><li>
+        <a class="is-flex" href="#中文资料">
+        <span class="has-mr-6">2.2</span>
+        <span>中文资料</span>
+        </a></li><li>
+        <a class="is-flex" href="#微信公众号">
+        <span class="has-mr-6">2.3</span>
+        <span>微信公众号</span>
+        </a></li></ul></li></ul>
+        </div>
+    </div>
+</div>
+
+        
+            
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            最新文章
+        </h3>
+        
+        <article class="media">
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-04-11T02:36:41.000Z">2019-04-11</time></div>
+                    <a href="/2019/04/11/study-golang-with-us/" class="has-link-black-ter is-size-6">study_golang_with_us</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-04-06T04:55:37.000Z">2019-04-06</time></div>
+                    <a href="/2019/04/06/data-index/" class="has-link-black-ter is-size-6">资料索引</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/资料索引/">资料索引</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            归档
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/04/">
+                <span class="level-start">
+                    <span class="level-item">四月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                标签
+            </h3>
+            <div class="field is-grouped is-grouped-multiline">
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/GoLang/">
+                        <span class="tag">GoLang</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/学习资料/">
+                        <span class="tag">学习资料</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+        
+        </div>
+    
+</div>
+
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only has-order-3 column-right is-sticky">
+    
+        
+<div class="card widget" id="toc">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                目录
+            </h3>
+            <ul class="menu-list"><li>
+        <a class="is-flex" href="#交流社区">
+        <span class="has-mr-6">1</span>
+        <span>交流社区</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#中文社区">
+        <span class="has-mr-6">1.1</span>
+        <span>中文社区</span>
+        </a></li><li>
+        <a class="is-flex" href="#英文社区">
+        <span class="has-mr-6">1.2</span>
+        <span>英文社区</span>
+        </a></li><li>
+        <a class="is-flex" href="#知识图谱">
+        <span class="has-mr-6">1.3</span>
+        <span>知识图谱</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#资料汇总">
+        <span class="has-mr-6">2</span>
+        <span>资料汇总</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#官方文档">
+        <span class="has-mr-6">2.1</span>
+        <span>官方文档</span>
+        </a></li><li>
+        <a class="is-flex" href="#中文资料">
+        <span class="has-mr-6">2.2</span>
+        <span>中文资料</span>
+        </a></li><li>
+        <a class="is-flex" href="#微信公众号">
+        <span class="has-mr-6">2.3</span>
+        <span>微信公众号</span>
+        </a></li></ul></li></ul>
+        </div>
+    </div>
+</div>
+
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            最新文章
+        </h3>
+        
+        <article class="media">
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-04-11T02:36:41.000Z">2019-04-11</time></div>
+                    <a href="/2019/04/11/study-golang-with-us/" class="has-link-black-ter is-size-6">study_golang_with_us</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-04-06T04:55:37.000Z">2019-04-06</time></div>
+                    <a href="/2019/04/06/data-index/" class="has-link-black-ter is-size-6">资料索引</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/资料索引/">资料索引</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            归档
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/04/">
+                <span class="level-start">
+                    <span class="level-item">四月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                标签
+            </h3>
+            <div class="field is-grouped is-grouped-multiline">
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/GoLang/">
+                        <span class="tag">GoLang</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/学习资料/">
+                        <span class="tag">学习资料</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+    
+    
+</div>
+
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="/images/logo.png" alt="资料索引" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2019 Go技术栈&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-icarus" target="_blank">Icarus</a>
+                
+                </p>
+            </div>
+            <div class="level-end">
+            
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Creative Commons" href="https://creativecommons.org/">
+                        
+                        <i class="fab fa-creative-commons"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/">
+                        
+                        <i class="fab fa-creative-commons-by"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="GitHub" href="https://github.com/souyunkutech">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                </p>
+                
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</footer>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("zh-CN");</script>
+
+
+    
+    
+    
+    <script src="/js/animation.js"></script>
+    
+
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
+    <script src="/js/gallery.js" defer></script>
+    
+
+    
+    
+
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        });
+    });
+</script>
+
+
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    MathJax.Hub.Config({
+        'HTML-CSS': {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+});
+</script>
+
+    
+    
+
+<a id="back-to-top" title="回到顶端" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="/js/back-to-top.js" defer></script>
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script>
+    <script src="/js/clipboard.js" defer></script>
+    
+
+    
+    
+    
+
+
+<script src="/js/main.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="想要查找什么...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(无标题)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js" defer></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css">
+    
+</body>
+</html>
