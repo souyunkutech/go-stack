@@ -2,24 +2,24 @@
 <html lang="zh">
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-<title>install-golang - Go技术栈</title>
+<title>Go环境安装 - Go技术栈</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 
 
-    <meta name="description" content="学习Go语言的第一步当然是要先安装Go语言的环境，毕竟，没有这个环境咱们什么都做不了。但是在安装环境之前咱们先了解一下Go涉及到的环境变量。这里介绍几个比较常用的Go语言环境变量。 GOROOTGo的安装路径，windows默认安装在’c:/go’路径下，Linux/macos下默认安装在’~/go’路径下 GOPATHGo 语言源码文件、包文件和可执行文件的路径，换句话说，GOPATH指定的是存">
-<meta name="keywords" content="学习资料,GoLang">
+    <meta name="description" content="学习Go语言的第一步当然是要先安装Go语言的环境，毕竟，没有这个环境咱们什么都做不了。但是在安装环境之前咱们先了解一下Go涉及到的环境变量。这里介绍几个比较常用的Go语言环境变量。">
+<meta name="keywords" content="学习资料,Golang">
 <meta property="og:type" content="article">
-<meta property="og:title" content="install-golang">
+<meta property="og:title" content="Go环境安装">
 <meta property="og:url" content="https://gostack.souyunku.com/2019/04/15/install-golang/index.html">
 <meta property="og:site_name" content="Go技术栈">
-<meta property="og:description" content="学习Go语言的第一步当然是要先安装Go语言的环境，毕竟，没有这个环境咱们什么都做不了。但是在安装环境之前咱们先了解一下Go涉及到的环境变量。这里介绍几个比较常用的Go语言环境变量。 GOROOTGo的安装路径，windows默认安装在’c:/go’路径下，Linux/macos下默认安装在’~/go’路径下 GOPATHGo 语言源码文件、包文件和可执行文件的路径，换句话说，GOPATH指定的是存">
+<meta property="og:description" content="学习Go语言的第一步当然是要先安装Go语言的环境，毕竟，没有这个环境咱们什么都做不了。但是在安装环境之前咱们先了解一下Go涉及到的环境变量。这里介绍几个比较常用的Go语言环境变量。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://gostack.souyunku.com/images/og_image.png">
-<meta property="og:updated_time" content="2019-04-15T08:40:13.327Z">
+<meta property="og:updated_time" content="2019-04-15T08:48:28.001Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="install-golang">
-<meta name="twitter:description" content="学习Go语言的第一步当然是要先安装Go语言的环境，毕竟，没有这个环境咱们什么都做不了。但是在安装环境之前咱们先了解一下Go涉及到的环境变量。这里介绍几个比较常用的Go语言环境变量。 GOROOTGo的安装路径，windows默认安装在’c:/go’路径下，Linux/macos下默认安装在’~/go’路径下 GOPATHGo 语言源码文件、包文件和可执行文件的路径，换句话说，GOPATH指定的是存">
+<meta name="twitter:title" content="Go环境安装">
+<meta name="twitter:description" content="学习Go语言的第一步当然是要先安装Go语言的环境，毕竟，没有这个环境咱们什么都做不了。但是在安装环境之前咱们先了解一下Go涉及到的环境变量。这里介绍几个比较常用的Go语言环境变量。">
 <meta name="twitter:image" content="https://gostack.souyunku.com/images/og_image.png">
 
 
@@ -104,7 +104,7 @@ var _hmt = _hmt || [];
         <div class="navbar-brand is-flex-center">
             <a class="navbar-item navbar-logo" href="/">
             
-                <img src="/images/logo.png" alt="install-golang" height="28">
+                <img src="/images/logo.png" alt="Go环境安装" height="28">
             
             </a>
         </div>
@@ -138,6 +138,10 @@ var _hmt = _hmt || [];
                     
                 
                 
+                <a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;">
+                    <i class="fas fa-list-ul"></i>
+                </a>
+                
                 
                 <a class="navbar-item search" title="搜索" href="javascript:;">
                     <i class="fas fa-search"></i>
@@ -168,7 +172,7 @@ var _hmt = _hmt || [];
                 <span class="level-item has-text-grey">
                     
                     
-                    13 分钟 读完 (大约 1933 个字)
+                    13 分钟 读完 (大约 1934 个字)
                 </span>
                 
                 
@@ -177,13 +181,14 @@ var _hmt = _hmt || [];
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-            install-golang
+            Go环境安装
             
         </h1>
 
         <div class="content">
 
             <p>学习Go语言的第一步当然是要先安装Go语言的环境，毕竟，没有这个环境咱们什么都做不了。<br>但是在安装环境之前咱们先了解一下Go涉及到的环境变量。<br>这里介绍几个比较常用的Go语言环境变量。</p>
+<a id="more"></a> 
 <h4 id="GOROOT"><a href="#GOROOT" class="headerlink" title="GOROOT"></a>GOROOT</h4><p>Go的安装路径，windows默认安装在’c:/go’路径下，Linux/macos下默认安装在’~/go’路径下</p>
 <h4 id="GOPATH"><a href="#GOPATH" class="headerlink" title="GOPATH"></a>GOPATH</h4><p>Go 语言源码文件、包文件和可执行文件的路径，换句话说，GOPATH指定的是存放项目相关的文件路径</p>
 <h4 id="GOOS"><a href="#GOOS" class="headerlink" title="GOOS"></a>GOOS</h4><p>电脑的操作系统标识。如Mac下为“darwin“，windows下为”windows“</p>
@@ -242,7 +247,7 @@ var _hmt = _hmt || [];
             <div class="level-start">
                 <div class="level-item">
                     <span class="is-size-6 has-text-grey has-mr-7">#</span>
-                    <a class="has-link-grey -link" href="/tags/GoLang/">GoLang</a>, <a class="has-link-grey -link" href="/tags/学习资料/">学习资料</a>
+                    <a class="has-link-grey -link" href="/tags/Golang/">Golang</a>, <a class="has-link-grey -link" href="/tags/学习资料/">学习资料</a>
                 </div>
             </div>
         </div>
@@ -291,7 +296,7 @@ var _hmt = _hmt || [];
         
         <div class="level-end">
             <a class="level level-item has-link-grey  article-nav-next" href="/2019/04/11/study-golang-with-us/">
-                <span class="level-item">study_golang_with_us</span>
+                <span class="level-item">跟着我们学Golang</span>
                 <i class="level-item fas fa-chevron-right"></i>
             </a>
         </div>
@@ -511,7 +516,7 @@ var _hmt = _hmt || [];
         <h3 class="menu-label">
             标签云
         </h3>
-        <a href="/tags/GoLang/" style="font-size: 10px;">GoLang</a> <a href="/tags/学习资料/" style="font-size: 10px;">学习资料</a>
+        <a href="/tags/Golang/" style="font-size: 10px;">Golang</a> <a href="/tags/学习资料/" style="font-size: 10px;">学习资料</a>
     </div>
 </div>
 
@@ -520,6 +525,81 @@ var _hmt = _hmt || [];
         <div class="column-right-shadow is-hidden-widescreen is-sticky">
         
             
+<div class="card widget" id="toc">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                目录
+            </h3>
+            <ul class="menu-list"><ul class="menu-list"><ul class="menu-list"><li>
+        <a class="is-flex" href="#GOROOT">
+        <span class="has-mr-6">1.1.1</span>
+        <span>GOROOT</span>
+        </a></li><li>
+        <a class="is-flex" href="#GOPATH">
+        <span class="has-mr-6">1.1.2</span>
+        <span>GOPATH</span>
+        </a></li><li>
+        <a class="is-flex" href="#GOOS">
+        <span class="has-mr-6">1.1.3</span>
+        <span>GOOS</span>
+        </a></li><li>
+        <a class="is-flex" href="#GOARCH">
+        <span class="has-mr-6">1.1.4</span>
+        <span>GOARCH</span>
+        </a></li><li>
+        <a class="is-flex" href="#GOBIN">
+        <span class="has-mr-6">1.1.5</span>
+        <span>GOBIN</span>
+        </a></li></ul><li>
+        <a class="is-flex" href="#官方下载路径">
+        <span class="has-mr-6">1.2</span>
+        <span>官方下载路径</span>
+        </a></li></ul><li>
+        <a class="is-flex" href="#通过二进制发行版安装">
+        <span class="has-mr-6">2</span>
+        <span>通过二进制发行版安装</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#Windows平台">
+        <span class="has-mr-6">2.1</span>
+        <span>Windows平台</span>
+        </a></li><li>
+        <a class="is-flex" href="#Linux-平台">
+        <span class="has-mr-6">2.2</span>
+        <span>Linux 平台</span>
+        </a></li><li>
+        <a class="is-flex" href="#Mac平台">
+        <span class="has-mr-6">2.3</span>
+        <span>Mac平台</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#第三方工具">
+        <span class="has-mr-6">3</span>
+        <span>第三方工具</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#apt-get">
+        <span class="has-mr-6">3.1</span>
+        <span>apt-get</span>
+        </a></li><li>
+        <a class="is-flex" href="#homebrew">
+        <span class="has-mr-6">3.2</span>
+        <span>homebrew</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#安装程序">
+        <span class="has-mr-6">4</span>
+        <span>安装程序</span>
+        </a></li><li>
+        <a class="is-flex" href="#测试安装">
+        <span class="has-mr-6">5</span>
+        <span>测试安装</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#微信公众号">
+        <span class="has-mr-6">5.1</span>
+        <span>微信公众号</span>
+        </a></li></ul></li></ul>
+        </div>
+    </div>
+</div>
+
         
             
 <div class="card widget">
@@ -533,7 +613,7 @@ var _hmt = _hmt || [];
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-04-15T08:32:53.000Z">2019-04-15</time></div>
-                    <a href="/2019/04/15/install-golang/" class="has-link-black-ter is-size-6">install-golang</a>
+                    <a href="/2019/04/15/install-golang/" class="has-link-black-ter is-size-6">Go环境安装</a>
                     <p class="is-size-7 is-uppercase">
                         <a class="has-link-grey -link" href="/categories/资料索引/">资料索引</a>
                     </p>
@@ -546,7 +626,7 @@ var _hmt = _hmt || [];
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-04-11T02:36:41.000Z">2019-04-11</time></div>
-                    <a href="/2019/04/11/study-golang-with-us/" class="has-link-black-ter is-size-6">study_golang_with_us</a>
+                    <a href="/2019/04/11/study-golang-with-us/" class="has-link-black-ter is-size-6">跟着我们学Golang</a>
                     <p class="is-size-7 is-uppercase">
                         <a class="has-link-grey -link" href="/categories/资料索引/">资料索引</a>
                     </p>
@@ -604,8 +684,8 @@ var _hmt = _hmt || [];
             <div class="field is-grouped is-grouped-multiline">
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/GoLang/">
-                        <span class="tag">GoLang</span>
+                    <a class="tags has-addons" href="/tags/Golang/">
+                        <span class="tag">Golang</span>
                         <span class="tag is-grey">3</span>
                     </a>
                 </div>
@@ -634,6 +714,81 @@ var _hmt = _hmt || [];
 <div class="column is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only has-order-3 column-right is-sticky">
     
         
+<div class="card widget" id="toc">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                目录
+            </h3>
+            <ul class="menu-list"><ul class="menu-list"><ul class="menu-list"><li>
+        <a class="is-flex" href="#GOROOT">
+        <span class="has-mr-6">1.1.1</span>
+        <span>GOROOT</span>
+        </a></li><li>
+        <a class="is-flex" href="#GOPATH">
+        <span class="has-mr-6">1.1.2</span>
+        <span>GOPATH</span>
+        </a></li><li>
+        <a class="is-flex" href="#GOOS">
+        <span class="has-mr-6">1.1.3</span>
+        <span>GOOS</span>
+        </a></li><li>
+        <a class="is-flex" href="#GOARCH">
+        <span class="has-mr-6">1.1.4</span>
+        <span>GOARCH</span>
+        </a></li><li>
+        <a class="is-flex" href="#GOBIN">
+        <span class="has-mr-6">1.1.5</span>
+        <span>GOBIN</span>
+        </a></li></ul><li>
+        <a class="is-flex" href="#官方下载路径">
+        <span class="has-mr-6">1.2</span>
+        <span>官方下载路径</span>
+        </a></li></ul><li>
+        <a class="is-flex" href="#通过二进制发行版安装">
+        <span class="has-mr-6">2</span>
+        <span>通过二进制发行版安装</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#Windows平台">
+        <span class="has-mr-6">2.1</span>
+        <span>Windows平台</span>
+        </a></li><li>
+        <a class="is-flex" href="#Linux-平台">
+        <span class="has-mr-6">2.2</span>
+        <span>Linux 平台</span>
+        </a></li><li>
+        <a class="is-flex" href="#Mac平台">
+        <span class="has-mr-6">2.3</span>
+        <span>Mac平台</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#第三方工具">
+        <span class="has-mr-6">3</span>
+        <span>第三方工具</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#apt-get">
+        <span class="has-mr-6">3.1</span>
+        <span>apt-get</span>
+        </a></li><li>
+        <a class="is-flex" href="#homebrew">
+        <span class="has-mr-6">3.2</span>
+        <span>homebrew</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#安装程序">
+        <span class="has-mr-6">4</span>
+        <span>安装程序</span>
+        </a></li><li>
+        <a class="is-flex" href="#测试安装">
+        <span class="has-mr-6">5</span>
+        <span>测试安装</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#微信公众号">
+        <span class="has-mr-6">5.1</span>
+        <span>微信公众号</span>
+        </a></li></ul></li></ul>
+        </div>
+    </div>
+</div>
+
     
         
 <div class="card widget">
@@ -647,7 +802,7 @@ var _hmt = _hmt || [];
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-04-15T08:32:53.000Z">2019-04-15</time></div>
-                    <a href="/2019/04/15/install-golang/" class="has-link-black-ter is-size-6">install-golang</a>
+                    <a href="/2019/04/15/install-golang/" class="has-link-black-ter is-size-6">Go环境安装</a>
                     <p class="is-size-7 is-uppercase">
                         <a class="has-link-grey -link" href="/categories/资料索引/">资料索引</a>
                     </p>
@@ -660,7 +815,7 @@ var _hmt = _hmt || [];
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-04-11T02:36:41.000Z">2019-04-11</time></div>
-                    <a href="/2019/04/11/study-golang-with-us/" class="has-link-black-ter is-size-6">study_golang_with_us</a>
+                    <a href="/2019/04/11/study-golang-with-us/" class="has-link-black-ter is-size-6">跟着我们学Golang</a>
                     <p class="is-size-7 is-uppercase">
                         <a class="has-link-grey -link" href="/categories/资料索引/">资料索引</a>
                     </p>
@@ -718,8 +873,8 @@ var _hmt = _hmt || [];
             <div class="field is-grouped is-grouped-multiline">
                 
                 <div class="control">
-                    <a class="tags has-addons" href="/tags/GoLang/">
-                        <span class="tag">GoLang</span>
+                    <a class="tags has-addons" href="/tags/Golang/">
+                        <span class="tag">Golang</span>
                         <span class="tag is-grey">3</span>
                     </a>
                 </div>
@@ -748,7 +903,7 @@ var _hmt = _hmt || [];
             <div class="level-start has-text-centered-mobile">
                 <a class="footer-logo is-block has-mb-6" href="/">
                 
-                    <img src="/images/logo.png" alt="install-golang" height="28">
+                    <img src="/images/logo.png" alt="Go环境安装" height="28">
                 
                 </a>
                 <p class="is-size-7">
