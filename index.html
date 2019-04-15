@@ -157,6 +157,105 @@ var _hmt = _hmt || [];
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
             <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2019-04-15T08:32:53.000Z">2019-04-15
+                </time>
+                
+                <div class="level-item">
+                    <a class="has-link-grey -link" href="/categories/资料索引/">资料索引</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    13 分钟 读完 (大约 1933 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+            <a class="has-link-black-ter" href="/2019/04/15/install-golang/">install-golang</a>
+            
+        </h1>
+
+        <div class="content">
+
+            <p>学习Go语言的第一步当然是要先安装Go语言的环境，毕竟，没有这个环境咱们什么都做不了。<br>但是在安装环境之前咱们先了解一下Go涉及到的环境变量。<br>这里介绍几个比较常用的Go语言环境变量。</p>
+<h4 id="GOROOT"><a href="#GOROOT" class="headerlink" title="GOROOT"></a>GOROOT</h4><p>Go的安装路径，windows默认安装在’c:/go’路径下，Linux/macos下默认安装在’~/go’路径下</p>
+<h4 id="GOPATH"><a href="#GOPATH" class="headerlink" title="GOPATH"></a>GOPATH</h4><p>Go 语言源码文件、包文件和可执行文件的路径，换句话说，GOPATH指定的是存放项目相关的文件路径</p>
+<h4 id="GOOS"><a href="#GOOS" class="headerlink" title="GOOS"></a>GOOS</h4><p>电脑的操作系统标识。如Mac下为“darwin“，windows下为”windows“</p>
+<h4 id="GOARCH"><a href="#GOARCH" class="headerlink" title="GOARCH"></a>GOARCH</h4><p>电脑的处理器架构，如386，arm或amd64</p>
+<h4 id="GOBIN"><a href="#GOBIN" class="headerlink" title="GOBIN"></a>GOBIN</h4><p>编译文件的安装位置，默认$GOROOT/bin</p>
+<p>下面开始今天的正题，安装Go环境</p>
+<p>Go语言的安装过程跟Java安装的过程非常的类似，可以通过二进制发行版安装、源码安装、安装程序以及第三方工具进行安装<br>比较常用的方式有通过二进制发行版安装、安装程序安装和第三方工具安装三种方式。源码安装需要各种各样的编译环境，所以动手能力不强以及兴趣不高的同学可以采用其他三种方式</p>
+<h3 id="官方下载路径"><a href="#官方下载路径" class="headerlink" title="官方下载路径"></a>官方下载路径</h3><p>Go语言是Google内部开发开源出来的语言，所以，官方网站：<a href="https://golang.org" target="_blank" rel="noopener">https://golang.org</a> 同样由Google提供<br>但是这个官方网站对国内的用户却不是那么友好，好在Google提供了国内能够访问的国内官网地址：<a href="https://go-zh.org/" target="_blank" rel="noopener">https://go-zh.org/</a> 供国内用户使用<br>一些Go语言想关的资料都可以从这里查到。但是该网站却没有提供下载链接，只是提供了下载网页的外链。所以咱们让然使用golang.cn域名下提供的下载链接</p>
+<p>下载路径为 : <a href="https://golang.google.cn/dl/" target="_blank" rel="noopener">https://golang.google.cn/dl/</a></p>
+<p>这里咱们只介绍通过二进制发行版、安装程序和第三方工具安装三种常用的方式，动手能力比较强的可以尝试着通过源码进行安装</p>
+<h2 id="通过二进制发行版安装"><a href="#通过二进制发行版安装" class="headerlink" title="通过二进制发行版安装"></a>通过二进制发行版安装</h2><h3 id="Windows平台"><a href="#Windows平台" class="headerlink" title="Windows平台"></a>Windows平台</h3><p>这里以64位操作系统举例</p>
+<p>go最新版1.12.4下载链接：<a href="https://dl.google.com/go/go1.12.4.windows-amd64.zip" target="_blank" rel="noopener">https://dl.google.com/go/go1.12.4.windows-amd64.zip</a></p>
+<p>下载之后我们将其解压到默认的安装路径’C:\go’目录下<br>之后打开控制面板配置环境变量，将’C:\go\bin;’加入到Path的最前面，确定退出环境变量设置窗口。(如果环境变量不生效，可以尝试一下重启大法^_^)</p>
+<p>在重新打开一个cmd终端，输入’go’,如果看到类似下面的内容，就说明安装成功啦，不相信的话可以执行下文的’hello world’。如果发现其他的，说明没有安装成功，可以检查一下环境变量的问题</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">Go is a tool for managing Go source code.</span><br><span class="line"></span><br><span class="line">Usage:</span><br><span class="line"></span><br><span class="line">	go command [arguments]</span><br><span class="line"></span><br><span class="line">The commands are:</span><br><span class="line"></span><br><span class="line">	build       compile packages and dependencies</span><br><span class="line">	clean       remove object files</span><br><span class="line">	doc         show documentation for package or symbol</span><br><span class="line">	env         print Go environment information</span><br><span class="line">	fix         run go tool fix on packages</span><br><span class="line">	fmt         run gofmt on package sources</span><br><span class="line">	generate    generate Go files by processing source</span><br><span class="line">	get         download and install packages and dependencies</span><br><span class="line">	install     compile and install packages and dependencies</span><br><span class="line">	list        list packages</span><br><span class="line">	run         compile and run Go program</span><br><span class="line">	test        test packages</span><br><span class="line">	tool        run specified go tool</span><br><span class="line">	version     print Go version</span><br><span class="line">	vet         run go tool vet on packages</span><br><span class="line"></span><br><span class="line">Use &quot;go help [command]&quot; for more information about a command.</span><br><span class="line"></span><br><span class="line">Additional help topics:</span><br><span class="line"></span><br><span class="line">	c           calling between Go and C</span><br><span class="line">	buildmode   description of build modes</span><br><span class="line">	filetype    file types</span><br><span class="line">	gopath      GOPATH environment variable</span><br><span class="line">	environment environment variables</span><br><span class="line">	importpath  import path syntax</span><br><span class="line">	packages    description of package lists</span><br><span class="line">	testflag    description of testing flags</span><br><span class="line">	testfunc    description of testing functions</span><br><span class="line"></span><br><span class="line">Use &quot;go help [topic]&quot; for more information about that topic.</span><br></pre></td></tr></table></figure>
+<h3 id="Linux-平台"><a href="#Linux-平台" class="headerlink" title="Linux 平台"></a>Linux 平台</h3><p>这里以64位操作系统举例</p>
+<p>go最新版1.12.4下载链接:<a href="https://dl.google.com/go/go1.12.4.linux-amd64.tar.gz" target="_blank" rel="noopener">https://dl.google.com/go/go1.12.4.linux-amd64.tar.gz</a></p>
+<p>先将下载好的二进制发行版压缩包放解压到用户根目录，此时根目录中将会出现’go’文件夹，里面就是go所有的安装内容</p>
+<p>linux下配置环境变量也相对简单一些</p>
+<p>将以下命令添加到 $HOME/.profile 文件中执行一下’source $HOME/.profile’就可以了</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export PATH=$PATH:$HOME/go/bin</span><br></pre></td></tr></table></figure>
+<p>配置好环境变量，我们再输入’go’，出现上面成功的说明，即安装成功了</p>
+<h3 id="Mac平台"><a href="#Mac平台" class="headerlink" title="Mac平台"></a>Mac平台</h3><p>通过二进制发行版安装的方式与Linux平台基本相同，下载二进制发行版压缩包，解压到用户根目录，配置环境变量。不过要注意下载Mac版本的安装包来安装哦</p>
+<blockquote>
+<p>这里需要注意的是，咱们通过通过二进制发行版来安装的过程中均没有配置’GOROOT’,’GOPATH’等环境变量。这是因为咱们在安装的过程中，都是将Go安装在默认的位置，Windows的默认位置是’C:\go’, MacOS和Linux的默认位置是’$HOME/go’。所以’GOROOT’使用的就是默认路径，’GOPATH’同样采用的是默认路径（用户的根目录），所以这里都是没问题的</p>
+</blockquote>
+<h2 id="第三方工具"><a href="#第三方工具" class="headerlink" title="第三方工具"></a>第三方工具</h2><p>Mac平台和Linux平台的用户都会使用包管理器进行程序的管理，Windows平台好像并没有（如果有的话可以留言告知）<br>Go语言同样可以通过包管理器进行安装，也是非常的方便</p>
+<h3 id="apt-get"><a href="#apt-get" class="headerlink" title="apt-get"></a>apt-get</h3><p>Ubuntu是目前使用最多的Linux桌面系统，使用apt-get命令来管理软件包</p>
+<p>我们可以通过下面的命令来安装Go</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install golang</span><br></pre></td></tr></table></figure>
+<p>这里需要注意的是，apt提供的不是最新的Go版本，而且，直接通过’apt-get install golang’下载的go，版本可能还比较低，这时候咱们可以指定版本下载</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install golang-1.10</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>Ubuntu16.04中 apt-get提供的最新的Go版本为1.10，不是Go发行的最新版，如果需要安装最新版，可参考其他安装方式</p>
+</blockquote>
+<h3 id="homebrew"><a href="#homebrew" class="headerlink" title="homebrew"></a>homebrew</h3><p>homebrew是Mac系统下面目前使用最多的管理软件的工具，简称brew</p>
+<p>目前brew已支持Go，可以通过命令直接安装Go</p>
+<p>如果没有安装过brew可以参考brew官方文档：<a href="https://brew.sh" target="_blank" rel="noopener">https://brew.sh</a> 这里直接通过brew进行Go的安装，不再阐述brew的安装</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">brew update &amp;&amp; brew upgrade</span><br><span class="line">brew install go</span><br></pre></td></tr></table></figure>
+<h2 id="安装程序"><a href="#安装程序" class="headerlink" title="安装程序"></a>安装程序</h2><p>Windows和MacOS作为全球最大的桌面系统，Go同样提供了安装程序来帮助开发者，这样一来只需要通过鼠标进行简单的点击就能很快的安装好Go的环境</p>
+<p>如果想通过这种方式进行安装，可以直接下载对应的安装程序点击运行即可</p>
+<h2 id="测试安装"><a href="#测试安装" class="headerlink" title="测试安装"></a>测试安装</h2><p>环境安装完成了，下面就可以进入咱们大家最熟悉的’Hello World’了</p>
+<p>可以先将下面的内容拷贝到main.go的文档中，运行’go run main.go’测试。后续咱们再细聊该文件的结构<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import &quot;fmt&quot;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">    fmt.Println(&quot;Hello World&quot;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>如果程序能正常运行，并正确输出’Hello World’，那恭喜你，Go语言环境安装已经成功了</p>
+<h3 id="微信公众号"><a href="#微信公众号" class="headerlink" title="微信公众号"></a>微信公众号</h3><p><img src="/images/blog/weixin.png" alt></p>
+<hr>
+<p>首发微信公众号：Go技术栈，ID：GoStack</p>
+<p>版权归作者所有，任何形式转载请联系作者。</p>
+<p>作者：搜云库技术团队<br>出处：<a href="https://gostack.souyunku.com/2019/04/15/install-golang">https://gostack.souyunku.com/2019/04/15/install-golang</a></p>
+
+
+        </div>
+
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
                 <time class="level-item has-text-grey" datetime="2019-04-11T02:36:41.000Z">2019-04-11
                 </time>
                 
@@ -347,7 +446,7 @@ var _hmt = _hmt || [];
                         文章
                     </p>
                     <p class="title has-text-weight-normal">
-                        2
+                        3
                     </p>
                 </div>
             </div>
@@ -479,7 +578,7 @@ var _hmt = _hmt || [];
                 <span class="level-item">资料索引</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">2</span>
+                <span class="level-item tag">3</span>
             </span>
         </a></li>
             </ul>
@@ -514,6 +613,19 @@ var _hmt = _hmt || [];
             
             <div class="media-content">
                 <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-04-15T08:32:53.000Z">2019-04-15</time></div>
+                    <a href="/2019/04/15/install-golang/" class="has-link-black-ter is-size-6">install-golang</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/资料索引/">资料索引</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <div class="media-content">
+                <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-04-11T02:36:41.000Z">2019-04-11</time></div>
                     <a href="/2019/04/11/study-golang-with-us/" class="has-link-black-ter is-size-6">study_golang_with_us</a>
                     <p class="is-size-7 is-uppercase">
@@ -554,7 +666,7 @@ var _hmt = _hmt || [];
                     <span class="level-item">四月 2019</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">2</span>
+                    <span class="level-item tag">3</span>
                 </span>
             </a>
         </li>
@@ -575,14 +687,14 @@ var _hmt = _hmt || [];
                 <div class="control">
                     <a class="tags has-addons" href="/tags/GoLang/">
                         <span class="tag">GoLang</span>
-                        <span class="tag is-grey">2</span>
+                        <span class="tag is-grey">3</span>
                     </a>
                 </div>
                 
                 <div class="control">
                     <a class="tags has-addons" href="/tags/学习资料/">
                         <span class="tag">学习资料</span>
-                        <span class="tag is-grey">2</span>
+                        <span class="tag is-grey">3</span>
                     </a>
                 </div>
                 
@@ -615,6 +727,19 @@ var _hmt = _hmt || [];
             
             <div class="media-content">
                 <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-04-15T08:32:53.000Z">2019-04-15</time></div>
+                    <a href="/2019/04/15/install-golang/" class="has-link-black-ter is-size-6">install-golang</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/资料索引/">资料索引</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <div class="media-content">
+                <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-04-11T02:36:41.000Z">2019-04-11</time></div>
                     <a href="/2019/04/11/study-golang-with-us/" class="has-link-black-ter is-size-6">study_golang_with_us</a>
                     <p class="is-size-7 is-uppercase">
@@ -655,7 +780,7 @@ var _hmt = _hmt || [];
                     <span class="level-item">四月 2019</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">2</span>
+                    <span class="level-item tag">3</span>
                 </span>
             </a>
         </li>
@@ -676,14 +801,14 @@ var _hmt = _hmt || [];
                 <div class="control">
                     <a class="tags has-addons" href="/tags/GoLang/">
                         <span class="tag">GoLang</span>
-                        <span class="tag is-grey">2</span>
+                        <span class="tag is-grey">3</span>
                     </a>
                 </div>
                 
                 <div class="control">
                     <a class="tags has-addons" href="/tags/学习资料/">
                         <span class="tag">学习资料</span>
-                        <span class="tag is-grey">2</span>
+                        <span class="tag is-grey">3</span>
                     </a>
                 </div>
                 
