@@ -1,0 +1,1252 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+<title>基础结构 - Go技术栈</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+    <meta name="description" content="鉴于上篇文章我们已经讲过Go语言环境的安装，现在我们已经有了一个可以运行Go程序的环境，而且，我们还运行了’Hello World’跑出了我们的第一个Go程序。这节我们就以’Hello World为例，讲解Go的基础结构，详细的解释一下Hello World中的每一行都代表了什么。 Go语言是一门静态语言，在编译前都会对代码进行严格的语法校验，如果语法错误是编译不过去的，所以基础结构是非常重要的一">
+<meta name="keywords" content="学习资料,Golang">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基础结构">
+<meta property="og:url" content="https://gostack.souyunku.com/2019/04/22/basic-knowledge/index.html">
+<meta property="og:site_name" content="Go技术栈">
+<meta property="og:description" content="鉴于上篇文章我们已经讲过Go语言环境的安装，现在我们已经有了一个可以运行Go程序的环境，而且，我们还运行了’Hello World’跑出了我们的第一个Go程序。这节我们就以’Hello World为例，讲解Go的基础结构，详细的解释一下Hello World中的每一行都代表了什么。 Go语言是一门静态语言，在编译前都会对代码进行严格的语法校验，如果语法错误是编译不过去的，所以基础结构是非常重要的一">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://gostack.souyunku.com/images/og_image.png">
+<meta property="og:updated_time" content="2019-04-22T09:56:02.281Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="基础结构">
+<meta name="twitter:description" content="鉴于上篇文章我们已经讲过Go语言环境的安装，现在我们已经有了一个可以运行Go程序的环境，而且，我们还运行了’Hello World’跑出了我们的第一个Go程序。这节我们就以’Hello World为例，讲解Go的基础结构，详细的解释一下Hello World中的每一行都代表了什么。 Go语言是一门静态语言，在编译前都会对代码进行严格的语法校验，如果语法错误是编译不过去的，所以基础结构是非常重要的一">
+<meta name="twitter:image" content="https://gostack.souyunku.com/images/og_image.png">
+
+
+
+
+
+
+
+<link rel="icon" href="/images/favicon.svg">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/monokai-sublime.css">
+
+
+    
+    
+    
+    <style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
+    
+
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+    
+
+    
+    
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+
+    
+    
+    
+    
+
+<link rel="stylesheet" href="/css/back-to-top.css">
+
+
+    
+    
+
+    
+    
+<script>
+var _hmt = _hmt || [];
+(function() {
+    var hm = document.createElement("script");
+    hm.src = "//hm.baidu.com/hm.js?a1b4762e2491f4d27483755ea7249b7e";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+    
+    
+
+    
+    
+<link rel="stylesheet" href="/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+    
+    
+    
+
+    
+    
+    
+
+
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="is-3-column">
+    <nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/">
+            
+                <img src="/images/logo.png" alt="基础结构" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item" href="/">主页</a>
+                
+                <a class="navbar-item" href="/archives">文章列表</a>
+                
+                <a class="navbar-item" href="/categories">分类</a>
+                
+                <a class="navbar-item" href="/tags">标签</a>
+                
+                <a class="navbar-item" href="https://team.souyunku.com/zh-cn/blog/02video.html">4T资料</a>
+                
+                <a class="navbar-item" href="/about">关于</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                    
+                    
+                    <a class="navbar-item" target="_blank" title="GitHub" href="https://github.com/souyunkutech">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                    
+                
+                
+                <a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;">
+                    <i class="fas fa-list-ul"></i>
+                </a>
+                
+                
+                <a class="navbar-item search" title="搜索" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main"><div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2019-04-22T09:50:41.000Z">2019-04-22
+                </time>
+                
+                <div class="level-item">
+                    <a class="has-link-grey -link" href="/categories/资料索引/">资料索引</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    37 分钟 读完 (大约 5492 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+            基础结构
+            
+        </h1>
+
+        <div class="content">
+
+            <p>鉴于上篇文章我们已经讲过Go语言环境的安装，现在我们已经有了一个可以运行Go程序的环境，而且，我们还运行了’Hello World’跑出了我们的第一个Go程序。<br>这节我们就以’Hello World为例，讲解Go的基础结构，详细的解释一下Hello World中的每一行都代表了什么。</p>
+<p>Go语言是一门静态语言，在编译前都会对代码进行严格的语法校验，如果语法错误是编译不过去的，所以基础结构是非常重要的一个环节。</p>
+<a id="more"></a>
+<p>类似Java中的package、class、interface、函数、常量和变量等，Go也有package、struct、interface、func、常量、变量等内容。</p>
+<p>struct类似Java中的class，是Go中的基本结构题。<br>interface也类似Java中的接口，可定义函数以供其他struct或func实现（可能不太好理解，后面会讲）。</p>
+<p>这里我们按照由外而内，从上至下的的顺序进行讲解。</p>
+<h2 id="GOPATH"><a href="#GOPATH" class="headerlink" title="GOPATH"></a>GOPATH</h2><p>上节说到GOPATH指定了存放项目相关的文件路径，下面包含’bin’、’pkg’、’src’三个目录。</p>
+<p>1.src 存放项目源代码</p>
+<p>2.pkg 存放编译后生成的文件</p>
+<p>3.bin 存放编译后生成的可执行文件</p>
+<p>目录结构如下</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">GOPATH</span><br><span class="line">    \_ src</span><br><span class="line">        \_ projectA</span><br><span class="line">        \_ projectB</span><br><span class="line">    \_ pkg</span><br><span class="line">        \_ projectA</span><br><span class="line">        \_ projectB</span><br><span class="line">    \_ bin</span><br><span class="line">        \_ commandA</span><br><span class="line">        \_ commandB</span><br></pre></td></tr></table></figure>
+<p>src目录是我们用的最多的，因为我们所有的项目都会放到这个目录中。后续项目的引用也是相对于该目录。</p>
+<h2 id="文件名"><a href="#文件名" class="headerlink" title="文件名"></a>文件名</h2><p>一个Go文件，我们对其的第一个认识，就是其的后缀，Go文件以<em>‘.go’</em>结尾（Windows用户一定要文件后缀的问题），这个很容易理解。<br>不能以数字开头、不能包含运算符、不能使用Go的关键字等对比其他语言也非常容易理解。<br>有效的标识符必须以字母（可以使用任何 UTF-8 编码的字符或 _）开头加上任意个数字或字符，如：’hello_world.go’、’router.go’、’base58.go’等。</p>
+<blockquote>
+<p>Go天然支持UTF8</p>
+</blockquote>
+<p>不过在这里有一些细节需要注意，就是Go文件在命名的时候，跟其他语言不太一样。<br>Go文件都是小写字母命名(虽然大写也支持，但是大写文件名并不规范)，如果需要多个单词进行拼接，那单词之间以<code>_</code>下划线进行连接。<br>特别是编写测试用例和多平台支持时对Go文件的命名。<br>如：’math_test.go’、’cpu_arm.go’、’cpu_x86.go’等。</p>
+<h2 id="命名规范"><a href="#命名规范" class="headerlink" title="命名规范"></a>命名规范</h2><p>Go可以说是非常干净整洁的代码，所以Go的命名非常简洁并有意义。虽然支持大小写混写和带下划线的命名方式，但是这样真的是非常的不规范，Go也不推荐这样做。Go更喜欢使用驼峰式的命名方式。如’BlockHeight’、’txHash’这样的定义。另外Go的定义可以直接通过’package.Xxx’这样的方式进行使用，所以也不推荐使用GetXXX这样的定义。</p>
+<h2 id="package"><a href="#package" class="headerlink" title="package"></a>package</h2><p>package的存在，是为了解决文件过多而造成的絮乱等问题，太多的文件都放在项目根目录下看着总是让人觉得不舒服，对开发、后期维护等都是问题。</p>
+<p>作为代码结构化方式之一， 每个Go程序都有package的概念。</p>
+<p>Go语法规定</p>
+<ol>
+<li>每个Go文件的第一行（不包含注释）都必须是package的定义</li>
+<li>可执行的程序package定义必须是<em>main</em></li>
+<li>package默认采用当前文件夹的名字，不采用类似Java中package的级联定义</li>
+</ol>
+<p>如下面的代码指定该文件属于learning_go这个package。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">package learning_go</span><br><span class="line"></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>Go对package的定义并不严格，在文件夹下的Go文件可以不使用文件夹名称作为package的定义（默认使用），但是同一个文件夹下的所有Go文件必须使用同一个package定义，这个是严格要求的。</p>
+<p>tips： package的定义均应该采用小写字母，所以文件夹的定义也应该都是小写字母。</p>
+<p>为了更好的区分不同的项目，Go定义的项目结构中都包含开源站点的信息，如github、gitee等开源站点中的所有开源Go项目都可以直接拿来使用。</p>
+<blockquote>
+<p>Go的背后是所有开源世界</p>
+</blockquote>
+<p>拿在GitHub下面创建的Go项目gosample项目为例。其项目路径为：”github.com/souyunkutech/gosample”。”github.com”表示其开源站点信息。”souyunkutech/gosample”就是项目的名称。<br>文件的路径就对应为”$GOPATH/src/github.com/souyunkutech/gosample”。</p>
+<p>“souyunkutech”表示了gosample这个项目属于”souyunkutech”这个用户所有。</p>
+<h3 id="package的获取"><a href="#package的获取" class="headerlink" title="package的获取"></a>package的获取</h3><p>在引用某个项目之前，需要先获取其源码，将其放置到<code>$GOPATH/src</code>下，这样我们才能对其进行引用从而正确的进行编译。</p>
+<p>Go获取源码可以手动将源码根据其相对路径放到正确的路径下，也可以通过<code>go get path</code>的方式自动获取。</p>
+<p>如获取’gosample’项目，可以通过<code>git clone</code>的方式下载到<code>$GOPATH/src/github.com/souyunkutech/</code></p>
+<p>也可以通过<code>go get github.com/souyunkutech/gosamp</code>的方式进行获取，go会自己把项目方到<code>$GOPATH/src/github.com/sirupsen/</code>目录下。</p>
+<p>如获取Go语言中一个非常知名的第三方日志组件<a href="https://github.com/sirupsen/logrus" target="_blank" rel="noopener">logrus</a>，可以将其通过<code>git clone</code>的方式下载到<code>$GOPATH/src/github.com/sirupsen/</code></p>
+<p>也可以通过<code>go get github.com/sirupsen/logrus</code>的方式进行获取。</p>
+<h3 id="package的引用"><a href="#package的引用" class="headerlink" title="package的引用"></a>package的引用</h3><p>import关键字的作用就是package的引用。作为外部引用的最小单位，Go以package为基础，不像Java那样，以对象为基础，供其他程序进行引用，import引用了某个package那就是引用了这个package的所有（可见的）内容。</p>
+<p>语法上需要注意的就是在引用时需要双引号包裹。没有使用过的package引用要不删除，要不定义为隐式引用。否则的话，在运行或者编译程序的时候就会报错：<em>imported and not used:…</em></p>
+<p>如HelloWorld代码中引用的’fmt’就是Go语言内建的程序package。fmt这个package下包含’doc.go’、’format.go’等（这个可以通过IDE的方式进行查看）这些Go文件中所有的（可见的）内容都可以使用。</p>
+<p>前面说到import的引用默认都是相对于<code>$GOPATH/src</code>目录的。所以我们要想使用某个开源项目，就需要使用其相对于<code>GOPATH/src</code>的相对路径进行引用。（Go系统内建的项目除外）</p>
+<p>import引用的语法有两种方式</p>
+<p>方式1，默认的引用方式，每个引用单独占一行， 如：</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import &quot;fmt&quot;</span><br></pre></td></tr></table></figure>
+<p>方式2，通过括号将所有的引用写在一个import中，每个引用单独占一行。通过这种方式，Go在格式化的时候也会将所有的引用按照字母的顺序进行排序，所以看起来特别的清晰。如：</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">import (</span><br><span class="line">        &quot;fmt&quot;</span><br><span class="line">        &quot;math&quot;</span><br><span class="line">    )</span><br></pre></td></tr></table></figure>
+<p>比如，logrus项目结构是<em>‘github.com/sirupsen/logrus’</em>，所以在引用这个日志组件时，就要写成下面这样</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import &quot;github.com/sirupsen/logrus&quot;</span><br></pre></td></tr></table></figure>
+<p>如果只想使用logrus项目中的某一个package的话，可以单引用该package，而不用引用logrus全项目。这也是非常的方便。<br>比如要使用logrus项目中’hook/syslog/syslog.go’，就可以像下面这样写import</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import &quot;github.com/sirupsen/logrus/hooks/syslog&quot;</span><br></pre></td></tr></table></figure>
+<p>Go的引用还支持以文件路径的方式。如’./utils’引用当前目录下的util这个package时，就可以写成下面这样，当然按照项目路径的方式写才是最合适最规范的，并不推荐使用文件路径进行引用。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import &quot;./utils&quot;</span><br></pre></td></tr></table></figure>
+<h3 id="隐式引用"><a href="#隐式引用" class="headerlink" title="隐式引用"></a>隐式引用</h3><p>Go的引用有一个特别另类的支持，那就是隐式引用，需要在引用前面加上<code>_</code>下划线标识。这种类型的引用一般会发生在加载数据库驱动的时候。如加载MySQL数据库驱动时。因为这些驱动在项目中并不会直接拿来使用，但不引用又不行。所以被称为隐式引用。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import _ &quot;github.com/go-sql-driver/mysql&quot;</span><br></pre></td></tr></table></figure>
+<p>package在引用的过程需要注意不能同时引用两个相同的项目，即不管项目的站点和项目所属，只要引用的项目package名称相同，都是不被允许的，在编译时会提示’XXX redeclared as imported package name’错误。但隐式引用除外。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">import &quot;encoding/json&quot;</span><br><span class="line">import &quot;github.com/gin-gonic/gin/json&quot;//!!! 不允许 !!!</span><br></pre></td></tr></table></figure>
+<p>但是能不能使用还要看这个package，就是这个package的可见性。</p>
+<h3 id="可见性"><a href="#可见性" class="headerlink" title="可见性"></a>可见性</h3><p>可见行可以理解为Java 中的私有和公有的意思。以首字母大写的结构体、结构字段、常量、变量、函数都是外部可见的，可以被外部包进行引用。如”fmt”中的”Println”函数，其首字母大写，就是可以被其他package引用的，”fmt”中还有”free”函数，其首字母小写，就是不能被其他package引用。</p>
+<p>但是不管对外部package是否可见，同一个package下的所有定义，都是可见并可以引用、使用的。</p>
+<h2 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h2><p>在Go语言中，函数的使用是最频繁的，毕竟要将代码写的清晰易懂嘛，而且好像所有的编程语言都有函数的概念（目前没听说过没有函数概念的语言）</p>
+<p>在Go中，函数的定义支持多个参数，同样也支持多个返回值（比Java要厉害哦），多个参数和多个返回值之间使用英文逗号进行分隔。</p>
+<p>同样与Java类似，Go的函数体使用<em>‘{}’</em>大括号进行包裹，但是，Go的定义更为严格，Go要求左大括号’{‘必须与函数定义同行，否则就会报错:’build-error: syntax error: unexpected semicolon or newline before {‘。</p>
+<ul>
+<li>多个参数的函数定义</li>
+</ul>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">func methodName(param1 type, param type2, param type3)&#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//简写方式，可以将相同类型的参数并列定义</span><br><span class="line">func methodName(param1, param2 type, param3 type2) &#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>有返回值的函数定义</li>
+</ul>
+<p>函数返回值的定义可以只定义返回类型，也可以直接定义返回的对象。</p>
+<p>定义了返回的对象后，就可以在函数内部直接使用该定义，避免了在函数中多次定义变量的问题。同时，在返回的时候也可以单单使用一个’return’关键字来代替 ‘return flag’这样的返回语句。<br>需要注意返回值要不都定义返回对象，要不都不定义，Go不允许只定义部分函数返回对象。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line">//最简单的函数定义</span><br><span class="line">func methodName()&#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//仅定义返回的类型</span><br><span class="line">func methodName() bool&#123;</span><br><span class="line">    ...</span><br><span class="line">    </span><br><span class="line">    return false</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">// 定义返回的对象+类型</span><br><span class="line">func methodName() (flag bool)&#123;</span><br><span class="line">    ...</span><br><span class="line"></span><br><span class="line">    return</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//定义多个返回类型</span><br><span class="line">func methodName()(bool, int) &#123;</span><br><span class="line">    ...</span><br><span class="line">    </span><br><span class="line">    return false, 0</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//定义多个返回对象+类型</span><br><span class="line">func methodName()(flag bool, index int) &#123;</span><br><span class="line">    ...</span><br><span class="line"></span><br><span class="line">    return</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// !!! 不允许的定义 !!!</span><br><span class="line">func methodName()(bool, index int)&#123;</span><br><span class="line">    ...</span><br><span class="line">    </span><br><span class="line">    return</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// !!! 不允许的定义 !!!</span><br><span class="line">func methodName()</span><br><span class="line">&#123;</span><br><span class="line">    ...</span><br><span class="line">        </span><br><span class="line">    return</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在Go中有两个特别的函数，’main’函数和’init’函数。</p>
+<p>‘main’函数是程序的主入口，package main必须包含该函数，否则的话是无法运行的。在其他的package中，该函数之能是一个普通的函数。这点要特别注意。<br>它的定义如下，不带也不能带任何的参数和返回值</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">func main()&#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>‘init’函数是package的初始化函数，会在执行’main’函数之前执行。</p>
+<p>同一个package中可以包含多个init函数，但是多个init函数的执行顺序Go并没有给出明确的定义，而且对于后期的维护也不方便，所以一个package中尽可能的只定义一个init函数比较合适。</p>
+<p>多个package中的init函数，按照被import的导入顺序进行执行。先导入的package，其init函数先执行。如果多个package同时引用一个package，那其也只会被导入一次，其init函数也只会执行一次。</p>
+<p>它的定义和main函数相同，也是不带也不能带任何的参数和返回值</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">func init()&#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h2><p>在Go中，有</p>
+<ul>
+<li>基本类型：int（整型）、float（浮点型）、 bool（布尔型）、 string（字符串类型）</li>
+<li>集合类型：array（数组）、 slice（切片）、 map（map）、 channel（通道）</li>
+<li>自定义类型： struct（结构体）、func（函数）等</li>
+<li>指针类型</li>
+</ul>
+<p>Go的集合类型并没有Java那么复杂，什么线程安全的集合、有序的集合都没有（全都需要自己实现^_^)!</p>
+<p>array和slice这两种集合都类似Java中的数组，他们无论在使用上都是一样的。以至于会经常忘记他们两个到底哪里不一样。其实真的是非常的细节，array是有长度的，slice是没有长度的。他们的区别就是这么小。</p>
+<p>channel是Go中特有的一种集合，是Go实现并发的最核心的内容。与Unix中的管道也是非常的类似。</p>
+<p>struct结构体简单理解就是对象了，可以自己定义自己需要的对象进行结构化的使用。和Java中的class不同，Java中函数是写在class中的，在Go中，struct的函数是要写在struct外的。<br>结构体定义需要使用type关键字结合struct来定义。struct前的字段为新的结构体的名称。内部字段可以使用大写字母开头设置成对外部可见的，也可以使用小写字母开头设置成对外部不可见。格式如下：</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">type Student struct &#123;</span><br><span class="line">    Name     string</span><br><span class="line">    age      int</span><br><span class="line">    classId  int</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func main()&#123;</span><br><span class="line">    var student Student = Student&#123;Name:&quot;小明&quot;,age: 18, classId: 1&#125;</span><br><span class="line">    fmt.Printf(&quot;学生信息: 学生姓名: %s, 学生年龄: %d, 学生班级号: %d &quot;, student.Name, student.age, student.classId)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>针对结构体，Go还支持如下的定义</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">type MyInt int</span><br></pre></td></tr></table></figure>
+<p>这是自定义的int类型，这样做的目的是，MyInt既包含了现有int的特性，还可以在其基础上添加自己所需要的函数。这就涉及到结构体的高级语法了，后续我们会详细的介绍。</p>
+<p>Go的作者之前设计过C语言，或许这是Go同样有指针类型的原因吧，不过讲真的，Go中的指针比C中的指针要好理解的多。在定义时简单在类型前面加上<code>*</code>星号就行，使用时正常使用，不需要加星号。对其的赋值需要使用<code>&amp;</code>将其地址复制给该指针字段。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">var log *logrus.Logger</span><br><span class="line"></span><br><span class="line">func init()&#123;</span><br><span class="line">    log = logrus.New()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func main()&#123;</span><br><span class="line">    log.Println(&quot;hello world&quot;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>类型的内容还是很多的，不同的类型无论是在定义上还是使用上等都有不同的语境，后续会专门对其进行介绍。今天先介绍一下类型的定义。</p>
+<p>Go中，无论是常量还是变量等的定义语法都是一样的。</p>
+<p>常量的定义使用 const 关键字，支持隐式的定义，也可以进行多个常量的同时定义。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">const PI float = 3.1415926 //显式定义</span><br><span class="line">const SIZE = 10            //隐式定义</span><br><span class="line">//多个常量同时定义</span><br><span class="line">const (</span><br><span class="line">    LENGTH = 20</span><br><span class="line">    WIDTH = 15</span><br><span class="line">    HEIGHT = 20</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">//另一种写法的常量同时定义</span><br><span class="line">const ADDRESS, STREET = &quot;北京市朝阳区望京SOHO&quot;, &quot;望京街1号&quot;</span><br></pre></td></tr></table></figure>
+<p>变量的定义使用 var 关键字，同样支持隐式的定义和多个变量的同时定义</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">var word = &quot;hello&quot;</span><br><span class="line">var size int = 10</span><br><span class="line"></span><br><span class="line">var (</span><br><span class="line">    length = 20</span><br><span class="line">    width = 15</span><br><span class="line">    height = 20</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">var address, street = &quot;北京市朝阳区望京SOHO&quot;, &quot;望京街1号&quot;</span><br></pre></td></tr></table></figure>
+<p>Go还支持在定义变量时把声明和赋值两步操作结合成一步来做。如下：</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">size := length * width * height</span><br></pre></td></tr></table></figure>
+<p>这样省了定义变量这一步，代码更简洁，看着也更清晰，是比较推荐的方法。（常量不能这样用哦）</p>
+<h2 id="关键字及保留字"><a href="#关键字及保留字" class="headerlink" title="关键字及保留字"></a>关键字及保留字</h2><p>为了保证Go语言的简洁，关键字在设计时也是非常的少，只有25个。</p>
+<table>
+<thead>
+<tr>
+<th>break</th>
+<th>case</th>
+<th>chan</th>
+<th>const</th>
+<th>continue</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>default</td>
+<td>defer</td>
+<td>else</td>
+<td>fallthrough</td>
+<td>for </td>
+</tr>
+<tr>
+<td>func</td>
+<td>go</td>
+<td>goto</td>
+<td>if</td>
+<td>import </td>
+</tr>
+<tr>
+<td>interface</td>
+<td>map</td>
+<td>package</td>
+<td>range</td>
+<td>return </td>
+</tr>
+<tr>
+<td>select</td>
+<td>struct</td>
+<td>switch</td>
+<td>type</td>
+<td>var</td>
+</tr>
+</tbody>
+</table>
+<p>当然，除了关键字，Go还保留了一部分基本类型的名称、内置函数的名称作为标识符，共计36个。</p>
+<table>
+<thead>
+<tr>
+<th>append</th>
+<th>bool</th>
+<th>byte</th>
+<th>cap</th>
+<th>close</th>
+<th>complex</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>complex64</td>
+<td>complex128</td>
+<td>copy</td>
+<td>false</td>
+<td>float32</td>
+<td>float64</td>
+</tr>
+<tr>
+<td>imag</td>
+<td>int</td>
+<td>int8</td>
+<td>int16</td>
+<td>int32</td>
+<td>int64</td>
+</tr>
+<tr>
+<td>iota</td>
+<td>len</td>
+<td>make</td>
+<td>new</td>
+<td>nil</td>
+<td>panic</td>
+</tr>
+<tr>
+<td>print</td>
+<td>println</td>
+<td>real</td>
+<td>recover</td>
+<td>string</td>
+<td>true</td>
+</tr>
+<tr>
+<td>uint16</td>
+<td>uint32</td>
+<td>uint64</td>
+<td>uint</td>
+<td>uint8</td>
+<td>uintptr</td>
+</tr>
+</tbody>
+</table>
+<p>另外，<code>_</code>下划线也是一个特殊的标识符，被称为空白标识符。所以，他可以像其他标识符那样接收变量的声明和赋值。但他的作用比较特殊，用来丢弃那些不想要的赋值，所以，使用<code>_</code>下划线来声明的值，在后续的代码中是无法使用的，当然也不能再付给其他值，也不能进行计算。这些变量也统一被称为匿名变量。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>到这里，本篇内容讲解了Go中的package、func以及类型三部分的内容。也就是这三部分内容，构成了Go语言的基础结构。到这，咱们也能对 Hello World的代码有了一个清晰的认识。也可以尝试着动手写一写简单的例子来加深印象。下面是使用变量、常量、以及函数等基础结构来实现的程序，可以参考来理解。源码可以通过’github.com/souyunkutech/gosample’获取。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">//源码路径：github.com/souyunkutech/gosample/chapter3/main.go</span><br><span class="line">package main //定义package为main才能执行下面的main函数，因为main函数只能在package main 中执行</span><br><span class="line"></span><br><span class="line">//简写版的import导入依赖的项目</span><br><span class="line">import (</span><br><span class="line">	&quot;fmt&quot;  //使用其下的Println函数</span><br><span class="line">	&quot;os&quot;   //使用其下的Stdout常量定义</span><br><span class="line">	&quot;time&quot; // 使用time包下的时间格式常量定义RFC3339</span><br><span class="line"></span><br><span class="line">	&quot;github.com/sirupsen/logrus&quot;            //日志组件</span><br><span class="line">	&quot;github.com/souyunkutech/gosample/util&quot; //自己写的工具包，下面有自定义的函数统一使用</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">//声明log变量是logrus.Logger的指针类型，使用时不需要带指针</span><br><span class="line">var log *logrus.Logger</span><br><span class="line"></span><br><span class="line">// 初始化函数，先于main函数执行</span><br><span class="line">func init() &#123;</span><br><span class="line">	log = logrus.New()            //使用logrus包下的New()函数进行logrus组件的初始化</span><br><span class="line">	log.Level = logrus.DebugLevel //将log变量中的Level字段设置为logrus下的DebugLevel</span><br><span class="line">	log.Out = os.Stdout</span><br><span class="line">	log.Formatter = &amp;logrus.TextFormatter&#123; //因为log.Formatter被声明为指针类型，所以对其赋值也是需要使用‘&amp;’关键字将其地址赋值给该字段</span><br><span class="line">		TimestampFormat: time.RFC3339, //使用time包下的RFC3339常量，赋值时如果字段与大括号不在一行需要在赋值后面添加逗号，包括最后一个字段的赋值！！！</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//定义常量PI</span><br><span class="line">const PI = 3.1415926</span><br><span class="line"></span><br><span class="line">//定义Student结构体，可以统一使用该结构来生命学生信息</span><br><span class="line">type Student struct &#123;</span><br><span class="line">	Name    string //姓名对外可见（首字母大写）</span><br><span class="line">	age     int    //年龄不能随便让人知道，所以对外不可见</span><br><span class="line">	classId int    //班级也是</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//main函数，程序执行的入口</span><br><span class="line">func main() &#123;</span><br><span class="line">	var hello = &quot;hello world&quot; //定义hello变量，省略了其类型string的声明</span><br><span class="line">	fmt.Println(hello)        //使用fmt包下的Println函数打印hello变量</span><br><span class="line"></span><br><span class="line">	//多个变量的定义和赋值，使用外部函数生成</span><br><span class="line">	length, width, height := util.RandomShape() //使用其他package的函数</span><br><span class="line"></span><br><span class="line">	//多个变量作为外部函数的参数</span><br><span class="line">	size := util.CalSize(length, width, height)</span><br><span class="line">	log.Infof(&quot;length=%d, width=%d, height=%d, size=%d&quot;, length, width, height, size) //使用日志组件logrus的函数进行打印长宽高和size</span><br><span class="line"></span><br><span class="line">	var student = Student&#123;Name: &quot;小明&quot;, age: 18, classId: 1&#125;                                         //声明学生信息，最后一个字段的赋值不需要添加逗号</span><br><span class="line">	log.Debugf(&quot;学生信息: 学生姓名: %s, 学生年龄: %d, 学生班级号: %d &quot;, student.Name, student.age, student.classId) //使用日志组件logrus的函数进行打印学生信息</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行结果如下：</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hello world</span><br><span class="line">INFO[0000] length=10, width=15, height=20, size=3000</span><br><span class="line">DEBU[0000] 学生信息: 学生姓名: 小明, 学生年龄: 18, 学生班级号: 1</span><br></pre></td></tr></table></figure>
+<p>如果还有不理解的内容可以通过搜云库技术群进行讨论或者留言，我们都会进行解答。</p>
+<p>源码可以通过’github.com/souyunkutech/gosample’获取。</p>
+<h2 id="微信公众号"><a href="#微信公众号" class="headerlink" title="微信公众号"></a>微信公众号</h2><p><img src="/images/blog/weixin.png" alt></p>
+<hr>
+<p>首发微信公众号：Go技术栈，ID：GoStack</p>
+<p>版权归作者所有，任何形式转载请联系作者。</p>
+<p>作者：搜云库技术团队<br>出处：<a href="https://gostack.souyunku.com/2019/04/22/basic_knowledge">https://gostack.souyunku.com/2019/04/22/basic_knowledge</a></p>
+
+
+        </div>
+
+        
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/tags/Golang/">Golang</a>, <a class="has-link-grey -link" href="/tags/学习资料/">学习资料</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3>
+        <div class="buttons is-centered">
+            
+            
+<a class="button is-info donate">
+    <span class="icon is-small">
+        <i class="fab fa-alipay"></i>
+    </span>
+    <span>支付宝</span>
+    <div class="qrcode"><img src="/images/alipay.png" alt="支付宝"></div>
+</a>
+
+            
+            
+<a class="button is-success donate">
+    <span class="icon is-small">
+        <i class="fab fa-weixin"></i>
+    </span>
+    <span>微信</span>
+    <div class="qrcode"><img src="/images/weixinpay.png" alt="微信"></div>
+</a>
+
+            
+        </div>
+    </div>
+</div>
+
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2019/04/15/install-golang/">
+                <span class="level-item">Go环境安装</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="title is-5 has-text-weight-normal">评论</h3>
+        
+<div id="comment-container"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.4.1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1.4.1/dist/gitalk.min.js"></script>
+<script>
+    var gitalk = new Gitalk({
+        clientID: '0f757b6d452b104e0262',
+        clientSecret: '8b0d6010e0dea6514b92afe1cf155beb52e6158f',
+        id: 'aeea20d0820ec902f2cf4f1be20e8792',
+        repo: 'go-stack-comment',
+        owner: 'souyunkutech',
+        admin: "souyunku"
+    })
+    gitalk.render('comment-container')
+</script>
+
+    </div>
+</div>
+</div>
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen  has-order-1 column-left is-sticky">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <nav class="level">
+            <div class="level-item has-text-centered">
+                <div>
+                    
+                        <img class="image is-128x128 has-mb-6" src="/images/avatar.png" alt="栈长">
+                    
+                    
+                    <p class="is-size-4 is-block">
+                        栈长
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-block">
+                        专注于Go技术栈的研究与知识分享
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-flex is-flex-center has-text-grey">
+                        <i class="fas fa-map-marker-alt has-mr-7"></i>
+                        <span>北京</span>
+                    </p>
+                    
+                </div>
+            </div>
+        </nav>
+        <nav class="level is-mobile">
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        文章
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        4
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        分类
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        1
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        标签
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        2
+                    </p>
+                </div>
+            </div>
+        </nav>
+        <div class="level">
+            <a class="level-item button is-link is-rounded" href="/about/#%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7" target="_blank">
+                关注我们</a>
+        </div>
+        
+        
+        <div class="level is-mobile">
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Github" href="https://github.com/souyunkutech">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Weixin" href="/about/#%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7">
+                
+                <i class="fab fa-weixin"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Twitter" href="/">
+                
+                <i class="fab fa-twitter"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Dribbble" href="/">
+                
+                <i class="fab fa-dribbble"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="RSS" href="/">
+                
+                <i class="fas fa-rss"></i>
+                
+            </a>
+            
+        </div>
+        
+    </div>
+</div>
+    
+        
+
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            链接
+        </h3>
+        <ul class="menu-list">
+        
+            <li>
+                <a class="level is-mobile" href="https://gostack.souyunku.com" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">Go 技术栈</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">gostack.souyunku.com</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li>
+                <a class="level is-mobile" href="https://team.souyunku.com" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">搜云库技术团队</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">team.souyunku.com</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li>
+                <a class="level is-mobile" href="https://golang.google.cn" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">Go 语言中国官方站点</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">golang.google.cn</span>
+                    </span>
+                </a>
+            </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+
+
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                分类
+            </h3>
+            <ul class="menu-list">
+            <li>
+        <a class="level is-marginless" href="/categories/资料索引/">
+            <span class="level-start">
+                <span class="level-item">资料索引</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">4</span>
+            </span>
+        </a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            标签云
+        </h3>
+        <a href="/tags/Golang/" style="font-size: 10px;">Golang</a> <a href="/tags/学习资料/" style="font-size: 10px;">学习资料</a>
+    </div>
+</div>
+
+    
+    
+        <div class="column-right-shadow is-hidden-widescreen is-sticky">
+        
+            
+<div class="card widget" id="toc">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                目录
+            </h3>
+            <ul class="menu-list"><li>
+        <a class="is-flex" href="#GOPATH">
+        <span class="has-mr-6">1</span>
+        <span>GOPATH</span>
+        </a></li><li>
+        <a class="is-flex" href="#文件名">
+        <span class="has-mr-6">2</span>
+        <span>文件名</span>
+        </a></li><li>
+        <a class="is-flex" href="#命名规范">
+        <span class="has-mr-6">3</span>
+        <span>命名规范</span>
+        </a></li><li>
+        <a class="is-flex" href="#package">
+        <span class="has-mr-6">4</span>
+        <span>package</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#package的获取">
+        <span class="has-mr-6">4.1</span>
+        <span>package的获取</span>
+        </a></li><li>
+        <a class="is-flex" href="#package的引用">
+        <span class="has-mr-6">4.2</span>
+        <span>package的引用</span>
+        </a></li><li>
+        <a class="is-flex" href="#隐式引用">
+        <span class="has-mr-6">4.3</span>
+        <span>隐式引用</span>
+        </a></li><li>
+        <a class="is-flex" href="#可见性">
+        <span class="has-mr-6">4.4</span>
+        <span>可见性</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#函数">
+        <span class="has-mr-6">5</span>
+        <span>函数</span>
+        </a></li><li>
+        <a class="is-flex" href="#数据类型">
+        <span class="has-mr-6">6</span>
+        <span>数据类型</span>
+        </a></li><li>
+        <a class="is-flex" href="#关键字及保留字">
+        <span class="has-mr-6">7</span>
+        <span>关键字及保留字</span>
+        </a></li><li>
+        <a class="is-flex" href="#总结">
+        <span class="has-mr-6">8</span>
+        <span>总结</span>
+        </a></li><li>
+        <a class="is-flex" href="#微信公众号">
+        <span class="has-mr-6">9</span>
+        <span>微信公众号</span>
+        </a></li></ul>
+        </div>
+    </div>
+</div>
+
+        
+            
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            最新文章
+        </h3>
+        
+        <article class="media">
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-04-22T09:50:41.000Z">2019-04-22</time></div>
+                    <a href="/2019/04/22/basic-knowledge/" class="has-link-black-ter is-size-6">基础结构</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/资料索引/">资料索引</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-04-15T08:32:53.000Z">2019-04-15</time></div>
+                    <a href="/2019/04/15/install-golang/" class="has-link-black-ter is-size-6">Go环境安装</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/资料索引/">资料索引</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-04-11T02:36:41.000Z">2019-04-11</time></div>
+                    <a href="/2019/04/11/study-golang-with-us/" class="has-link-black-ter is-size-6">跟着我们学Golang</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/资料索引/">资料索引</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-04-06T04:55:37.000Z">2019-04-06</time></div>
+                    <a href="/2019/04/06/data-index/" class="has-link-black-ter is-size-6">资料索引</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/资料索引/">资料索引</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            归档
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/04/">
+                <span class="level-start">
+                    <span class="level-item">四月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">4</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                标签
+            </h3>
+            <div class="field is-grouped is-grouped-multiline">
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Golang/">
+                        <span class="tag">Golang</span>
+                        <span class="tag is-grey">4</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/学习资料/">
+                        <span class="tag">学习资料</span>
+                        <span class="tag is-grey">4</span>
+                    </a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+        
+        </div>
+    
+</div>
+
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only has-order-3 column-right is-sticky">
+    
+        
+<div class="card widget" id="toc">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                目录
+            </h3>
+            <ul class="menu-list"><li>
+        <a class="is-flex" href="#GOPATH">
+        <span class="has-mr-6">1</span>
+        <span>GOPATH</span>
+        </a></li><li>
+        <a class="is-flex" href="#文件名">
+        <span class="has-mr-6">2</span>
+        <span>文件名</span>
+        </a></li><li>
+        <a class="is-flex" href="#命名规范">
+        <span class="has-mr-6">3</span>
+        <span>命名规范</span>
+        </a></li><li>
+        <a class="is-flex" href="#package">
+        <span class="has-mr-6">4</span>
+        <span>package</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#package的获取">
+        <span class="has-mr-6">4.1</span>
+        <span>package的获取</span>
+        </a></li><li>
+        <a class="is-flex" href="#package的引用">
+        <span class="has-mr-6">4.2</span>
+        <span>package的引用</span>
+        </a></li><li>
+        <a class="is-flex" href="#隐式引用">
+        <span class="has-mr-6">4.3</span>
+        <span>隐式引用</span>
+        </a></li><li>
+        <a class="is-flex" href="#可见性">
+        <span class="has-mr-6">4.4</span>
+        <span>可见性</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#函数">
+        <span class="has-mr-6">5</span>
+        <span>函数</span>
+        </a></li><li>
+        <a class="is-flex" href="#数据类型">
+        <span class="has-mr-6">6</span>
+        <span>数据类型</span>
+        </a></li><li>
+        <a class="is-flex" href="#关键字及保留字">
+        <span class="has-mr-6">7</span>
+        <span>关键字及保留字</span>
+        </a></li><li>
+        <a class="is-flex" href="#总结">
+        <span class="has-mr-6">8</span>
+        <span>总结</span>
+        </a></li><li>
+        <a class="is-flex" href="#微信公众号">
+        <span class="has-mr-6">9</span>
+        <span>微信公众号</span>
+        </a></li></ul>
+        </div>
+    </div>
+</div>
+
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            最新文章
+        </h3>
+        
+        <article class="media">
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-04-22T09:50:41.000Z">2019-04-22</time></div>
+                    <a href="/2019/04/22/basic-knowledge/" class="has-link-black-ter is-size-6">基础结构</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/资料索引/">资料索引</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-04-15T08:32:53.000Z">2019-04-15</time></div>
+                    <a href="/2019/04/15/install-golang/" class="has-link-black-ter is-size-6">Go环境安装</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/资料索引/">资料索引</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-04-11T02:36:41.000Z">2019-04-11</time></div>
+                    <a href="/2019/04/11/study-golang-with-us/" class="has-link-black-ter is-size-6">跟着我们学Golang</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/资料索引/">资料索引</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-04-06T04:55:37.000Z">2019-04-06</time></div>
+                    <a href="/2019/04/06/data-index/" class="has-link-black-ter is-size-6">资料索引</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/资料索引/">资料索引</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            归档
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/04/">
+                <span class="level-start">
+                    <span class="level-item">四月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">4</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                标签
+            </h3>
+            <div class="field is-grouped is-grouped-multiline">
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Golang/">
+                        <span class="tag">Golang</span>
+                        <span class="tag is-grey">4</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/学习资料/">
+                        <span class="tag">学习资料</span>
+                        <span class="tag is-grey">4</span>
+                    </a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+    
+    
+</div>
+
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="/images/logo.png" alt="基础结构" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2019 Go技术栈&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-icarus" target="_blank">Icarus</a>
+                
+                </p>
+            </div>
+            <div class="level-end">
+            
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Creative Commons" href="https://creativecommons.org/">
+                        
+                        <i class="fab fa-creative-commons"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/">
+                        
+                        <i class="fab fa-creative-commons-by"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="GitHub" href="https://github.com/souyunkutech">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                </p>
+                
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</footer>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("zh-CN");</script>
+
+
+    
+    
+    
+    <script src="/js/animation.js"></script>
+    
+
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
+    <script src="/js/gallery.js" defer></script>
+    
+
+    
+    
+
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        });
+    });
+</script>
+
+
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    MathJax.Hub.Config({
+        'HTML-CSS': {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+});
+</script>
+
+    
+    
+
+<a id="back-to-top" title="回到顶端" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="/js/back-to-top.js" defer></script>
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script>
+    <script src="/js/clipboard.js" defer></script>
+    
+
+    
+    
+    
+
+
+<script src="/js/main.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="想要查找什么...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(无标题)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js" defer></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css">
+    
+</body>
+</html>
