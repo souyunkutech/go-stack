@@ -1,0 +1,1082 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+<title>【跟着我们学Golang】流程控制 - Go技术栈</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+    <meta name="description" content="作为一门高级语言，Go同样提供了流程控制的支持。在了解了基础结构之后，继续学习Go的流程控制，里面涉及到的基础结构的内容还能对其有更多的了解。">
+<meta name="keywords" content="学习资料,Golang">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【跟着我们学Golang】流程控制">
+<meta property="og:url" content="https://gostack.souyunku.com/2019/04/29/if-for-switch-select/index.html">
+<meta property="og:site_name" content="Go技术栈">
+<meta property="og:description" content="作为一门高级语言，Go同样提供了流程控制的支持。在了解了基础结构之后，继续学习Go的流程控制，里面涉及到的基础结构的内容还能对其有更多的了解。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://gostack.souyunku.com/images/og_image.png">
+<meta property="og:updated_time" content="2019-04-29T08:19:45.826Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【跟着我们学Golang】流程控制">
+<meta name="twitter:description" content="作为一门高级语言，Go同样提供了流程控制的支持。在了解了基础结构之后，继续学习Go的流程控制，里面涉及到的基础结构的内容还能对其有更多的了解。">
+<meta name="twitter:image" content="https://gostack.souyunku.com/images/og_image.png">
+
+
+
+
+
+
+
+<link rel="icon" href="/images/favicon.svg">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/monokai-sublime.css">
+
+
+    
+    
+    
+    <style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
+    
+
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+    
+
+    
+    
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+
+    
+    
+    
+    
+
+<link rel="stylesheet" href="/css/back-to-top.css">
+
+
+    
+    
+
+    
+    
+<script>
+var _hmt = _hmt || [];
+(function() {
+    var hm = document.createElement("script");
+    hm.src = "//hm.baidu.com/hm.js?a1b4762e2491f4d27483755ea7249b7e";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+    
+    
+
+    
+    
+<link rel="stylesheet" href="/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+    
+    
+    
+
+    
+    
+    
+
+
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="is-3-column">
+    <nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/">
+            
+                <img src="/images/logo.png" alt="【跟着我们学Golang】流程控制" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item" href="/">主页</a>
+                
+                <a class="navbar-item" href="/archives">文章列表</a>
+                
+                <a class="navbar-item" href="/categories">分类</a>
+                
+                <a class="navbar-item" href="/tags">标签</a>
+                
+                <a class="navbar-item" href="https://team.souyunku.com/zh-cn/blog/02video.html">4T资料</a>
+                
+                <a class="navbar-item" href="/about">关于</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                    
+                    
+                    <a class="navbar-item" target="_blank" title="GitHub" href="https://github.com/souyunkutech">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                    
+                
+                
+                <a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;">
+                    <i class="fas fa-list-ul"></i>
+                </a>
+                
+                
+                <a class="navbar-item search" title="搜索" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main"><div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2019-04-29T07:50:32.000Z">2019-04-29
+                </time>
+                
+                <div class="level-item">
+                    <a class="has-link-grey -link" href="/categories/资料索引/">资料索引</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    19 分钟 读完 (大约 2818 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+            【跟着我们学Golang】流程控制
+            
+        </h1>
+
+        <div class="content">
+
+            <p>作为一门高级语言，Go同样提供了流程控制的支持。在了解了基础结构之后，继续学习Go的流程控制，里面涉及到的基础结构的内容还能对其有更多的了解。</p>
+<a id="more"></a> 
+<p>说流程控制之前先说一下interface，因为后续在流程控制中会穿插着对interface的使用。</p>
+<h3 id="interface"><a href="#interface" class="headerlink" title="interface"></a>interface</h3><p>interface是一切类型的基类型，类似于Java中的基类<code>Obejct</code>，所有的结构都是interface的实现，因为interface基类型没有定义任何的函数，所以其他任何结构都认为是interface的实现。当然，也可以自己定义interface自己去实现相应的函数，这个下期面向对象的时候会详细解释。这里先简单说明interface作为基类型时的使用。</p>
+<p>在Java中，所有的类型都是Object的子类，所以声明对象时可以将对象的类型声明为Object，在赋值时给一个子类型，在Go中同样可以，但仅限于针对interface声明的使用（还是会牵涉到面向对象的东西），也就是说，声明时可以将变量声明为interface类型，赋值时给一个其他基础类型的值，这是最简单的interface作为基类型的使用。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var hello interface&#123;&#125; = &quot;hello world&quot;</span><br><span class="line"></span><br><span class="line">fmt.Println(hello)</span><br></pre></td></tr></table></figure>
+<p>例子中声明hello时，声明的类型是interface{}类型，并不是string类型，但是赋值时给的是string类型，说明hello实际类型还是string类型。具体的类型转换下面会详细说明。</p>
+<h2 id="if-else"><a href="#if-else" class="headerlink" title="if-else"></a>if-else</h2><p>Go中的if-else结构的用户与Java中的特别的类似，仅仅区别在两者的语法上面，Go的语法为：</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">if 条件1 &#123;</span><br><span class="line">    ...</span><br><span class="line">&#125; else if 条件2 &amp;&amp; 条件3 &#123;</span><br><span class="line">    ...</span><br><span class="line">&#125; else &#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Go对语法的要求没有Java那么严格，对于括号可以带，也可以不带。同样的，Go也支持<code>&amp;&amp;</code>、<code>||</code>、<code>!</code>这样的运算符进行多个条件的关联判断</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">func max(a, b int) (max int) &#123;</span><br><span class="line">    if a &gt; b &#123;</span><br><span class="line">        max = a</span><br><span class="line">    &#125; else if a == b &#123;</span><br><span class="line">        max = a</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        max = b</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    return </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="断言"><a href="#断言" class="headerlink" title="断言"></a>断言</h3><p>断言在Go中是一种类型转换的语法，能否方便的进行类型的转换。Go语言中简单的断言语法为 <code>value := element.(type)</code></p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">//value := element.(type) //type为要转换的类型</span><br><span class="line"></span><br><span class="line">var hello interface&#123;&#125; = &quot;helloworld&quot;</span><br><span class="line"></span><br><span class="line">fmt.Println(hello.(string))</span><br><span class="line">fmt.Println(hello.(int))//该行会报错，因为hello实际类型是string类型</span><br></pre></td></tr></table></figure>
+<p>稍微不注意，直接转换的话就会出现异常，所以一般不推荐使用简单的语法，而是用高级语法 <code>value, ok := element.(type)</code>，这也是在if-else结构中讲解的原因。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">// value, ok := element.(type) //type为要转换的类型，ok为是否成功转换，类型为bool，value为实际转换的值</span><br><span class="line"></span><br><span class="line">var hello interface&#123;&#125; = &quot;helloworld&quot;</span><br><span class="line"></span><br><span class="line">helloS, ok := hello.(string)</span><br><span class="line">if ok &#123;</span><br><span class="line">    fmt.Println(&quot;hello tranfer successfully : &quot;, helloS)</span><br><span class="line">&#125; else &#123;</span><br><span class="line">    fmt.Println(&quot;hello transfer failed&quot;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用高级语法能保证在运行的时候不会出现错误，保证程序的持续执行，这是比较推荐的做法。</p>
+<p>map断言是map的一种高级用法。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">//map的断言</span><br><span class="line">// value, ok := m[key] //这里的OK不再是简单的成功或者失败，理解成是否存在更合适</span><br><span class="line">var m = make(map[string]interface&#123;&#125;)//创建map的方式，具体make的用法后续会讲解</span><br><span class="line"></span><br><span class="line">m[&quot;key1&quot;] = &quot;value1&quot;</span><br><span class="line">value1, ok := m[&quot;key1&quot;]</span><br><span class="line">if ok &#123;</span><br><span class="line">	fmt.Println(&quot;map m contain &apos;key1&apos; &quot;, value1)</span><br><span class="line">&#125; else &#123;</span><br><span class="line">	fmt.Println(&quot;map m contain &apos;key1&apos;&quot;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>map在断言的使用上好像是天生支持似的，不需要进行Contains函数的校验等，直接使用，平时在代码中使用的也是非常多。简直不要太好用。    </p>
+<h2 id="switch"><a href="#switch" class="headerlink" title="switch"></a>switch</h2><p>switch感觉像是if-else的高级版，同样是进行条件判断的结构，不同的条件执行不同的语句。语法类似Java，Java中只能使用byte、int、short、char和string，在Go中可没有这些限制。<br>从上至下的判断，直到找到匹配的case或者执行default语句，case结尾也不需要break进行跳出流程操作，执行完自动跳出。相反，如果想执行下一个case的话，需要使用<code>fallthrough</code>关键字进行下沉操作，<br>这时候下一条case的条件将被忽略。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">switch value1 &#123; //大括号必须与switch保持一行</span><br><span class="line">    case value1:</span><br><span class="line">        ...</span><br><span class="line">    case value2, value3://多个条件使用逗号隔开</span><br><span class="line">        ...</span><br><span class="line">    default://没有符合的条件执行默认</span><br><span class="line">        ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>语法规定 switch后跟的value1可以是任意类型（甚至是不写），但是case后的条件必须和switch后的value保持相同类型</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">grade := 10</span><br><span class="line">switch grade &#123;</span><br><span class="line">//case code &lt; 60://code为int类型，不能使用code &lt; 60作为case条件</span><br><span class="line">case 10:</span><br><span class="line">	fmt.Println(&quot;不及格&quot;)</span><br><span class="line">case 70:</span><br><span class="line">	fmt.Println(&quot;及格&quot;)</span><br><span class="line">default:</span><br><span class="line">	fmt.Println(&quot;无效的分数&quot;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//用于类型断言</span><br><span class="line">switch hello.(type) &#123;</span><br><span class="line">case string:</span><br><span class="line">	fmt.Println(&quot;hello is string&quot;)</span><br><span class="line">case int:</span><br><span class="line">	fmt.Println(&quot;hello is int&quot;)</span><br><span class="line">default:</span><br><span class="line">	fmt.Println(&quot;hello is unknown type&quot;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">switch &#123;//直接判断case</span><br><span class="line">case a &lt; b:</span><br><span class="line">	fmt.Println(&quot;a less than b&quot;)</span><br><span class="line">	fallthrough //紧接着执行下一个case，不需要进行判断</span><br><span class="line">case a &gt; b:</span><br><span class="line">	fmt.Println(&quot;a bigger than b&quot;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="for"><a href="#for" class="headerlink" title="for"></a>for</h2><p>说到循环、重复执行等首先想到的就是for，Go同样提供了支持，相对于Java，Go中for的使用更灵活。<br>同样的，想跳出for循环时使用<code>break</code>关键字。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">//语法一</span><br><span class="line">for init;条件;赋值&#123;//左侧大括号必须与for同行</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//语法二</span><br><span class="line">for 条件 &#123;//左侧大括号必须与for同行</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//语法三</span><br><span class="line">//这是个死循环</span><br><span class="line">for &#123;//左侧大括号必须与for同行</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//语法四</span><br><span class="line">for index, value := range slice/array/map &#123;//range是关键字</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上手就是一个排序来介绍最基本的for结构</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">a := []int&#123;1, 3, 9, 4, 1, 4, 6, 132, 1, 29, 43, 55, 89, 46&#125;</span><br><span class="line">for i := 0; i &lt; len(a); i++ &#123;//len为Go内置函数</span><br><span class="line">	for j := i + 1; j &lt; len(a); j++ &#123;</span><br><span class="line">		if a[i] &gt; a[j] &#123;</span><br><span class="line">			a[i], a[j] = a[j], a[i]</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">fmt.Println(a)//结果：[1 1 1 3 4 4 6 9 29 43 46 55 89 132]</span><br></pre></td></tr></table></figure>
+<p>只写条件的for循环，类似Java中的while</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var i = 0</span><br><span class="line">for i &lt; len(a) &#123;</span><br><span class="line">	fmt.Print(a[i],&quot;  &quot;)</span><br><span class="line">	i++</span><br><span class="line">&#125;//结果： 1  1  1  3  4  4  6  9  29  43  46  55  89  132</span><br></pre></td></tr></table></figure>
+<p>死循环写法更简单了，不过需要注意使用break进行跳出，否则电脑就该嗡嗡嗡～响不停了</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">i = 0</span><br><span class="line">for&#123;</span><br><span class="line">	if i &lt; len(a) &#123;</span><br><span class="line">		fmt.Print(a[i], &quot; &quot;)</span><br><span class="line">		i++</span><br><span class="line">	&#125; else &#123;</span><br><span class="line">		break</span><br><span class="line">	&#125;</span><br><span class="line">&#125;//结果： 1 1 1 3 4 4 6 9 29 43 46 55 89 132</span><br></pre></td></tr></table></figure>
+<p>最牛的语法四就是为slice和array使用的，能遍历所有的集合。当遍历slice和array时，index指的是其中的索引位置；遍历map时指的就是key了。请看下面的例子<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">for index, value := range a &#123;</span><br><span class="line">	fmt.Printf(&quot;index: %d, value: %d \n&quot;, index, value)</span><br><span class="line">&#125;</span><br><span class="line">/*</span><br><span class="line">结果：</span><br><span class="line">index: 0, value: 1</span><br><span class="line">index: 1, value: 1</span><br><span class="line">index: 2, value: 1</span><br><span class="line">index: 3, value: 3</span><br><span class="line">index: 4, value: 4</span><br><span class="line">index: 5, value: 4</span><br><span class="line">index: 6, value: 6</span><br><span class="line">index: 7, value: 9</span><br><span class="line">index: 8, value: 29</span><br><span class="line">index: 9, value: 43</span><br><span class="line">index: 10, value: 46</span><br><span class="line">index: 11, value: 55</span><br><span class="line">index: 12, value: 89</span><br><span class="line">index: 13, value: 132</span><br><span class="line"> */</span><br><span class="line">m := map[string]string&#123;&#125;</span><br><span class="line">m[&quot;hello&quot;] = &quot;world&quot;</span><br><span class="line">m[&quot;hey&quot;] = &quot;bye&quot;</span><br><span class="line"></span><br><span class="line">for key, value := range m &#123;</span><br><span class="line">	fmt.Printf(&quot;key: %s, value: %s \n&quot;, key, value)</span><br><span class="line">&#125;</span><br><span class="line">/*</span><br><span class="line">结果：</span><br><span class="line">key: hello, value: world</span><br><span class="line">key: hey, value: bye</span><br><span class="line"> */</span><br></pre></td></tr></table></figure></p>
+<h2 id="select"><a href="#select" class="headerlink" title="select"></a>select</h2><p>select 第一眼看到可能会想到SQL中的选择，但是它也是Go中的一个流程控制关键字。</p>
+<p>select的使用主要是结合channel来使用，所以这里要是讲解channels会设计到很多东西，我们后期会做详细的讲解，这里先做select的介绍。</p>
+<p>select的语法跟switch类似，用于选择合适的条件进行执行相应的逻辑，但牵涉到channel，所以select中的case都是对channel的操作，只能是往channel中读或者写。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">select &#123;</span><br><span class="line">    case channel读操作:</span><br><span class="line">        ...</span><br><span class="line">    case channel写操作:</span><br><span class="line">        ...</span><br><span class="line">    default:</span><br><span class="line">        ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>注意点：</p>
+<p>channel包含读和写两种操作，case中必须包含一种操作</p>
+<p>case的执行是无序的、随机的，select会执行任意一个可执行的case</p>
+<p>没有可执行的case时会执行default，没有default的话就会阻塞，等待可执行的channel</p>
+<p>下面是一个简单的例子实现，先不要深究内容含义，了解select语法即可</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">c := make(chan int, 1)</span><br><span class="line">select &#123;</span><br><span class="line">case c &lt;- 1:</span><br><span class="line">	fmt.Println(&quot;push into channel&quot;)</span><br><span class="line">case &lt;-c:</span><br><span class="line">	fmt.Println(&quot;get from channel&quot;)</span><br><span class="line">default:</span><br><span class="line">	fmt.Println(&quot;default&quot;)</span><br><span class="line">&#125;</span><br><span class="line">//结果：push into channel</span><br></pre></td></tr></table></figure>
+<h3 id="…"><a href="#…" class="headerlink" title="…"></a>…</h3><p>不要怀疑标题，标题就是三个英文点，这里要说一下这三个点的问题，以此来解释一下为什么在使用fmt.Println()和fmt.Printf()函数时使用逗号将参数隔开的问题。</p>
+<p>我们先看一下fmt.Println()和fmt.Printf()的源码</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">// Println formats using the default formats for its operands and writes to standard output.</span><br><span class="line">// Spaces are always added between operands and a newline is appended.</span><br><span class="line">// It returns the number of bytes written and any write error encountered.</span><br><span class="line">func Println(a ...interface&#123;&#125;) (n int, err error) &#123;</span><br><span class="line">	return Fprintln(os.Stdout, a...)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// Printf formats according to a format specifier and writes to standard output.</span><br><span class="line">// It returns the number of bytes written and any write error encountered.</span><br><span class="line">func Printf(format string, a ...interface&#123;&#125;) (n int, err error) &#123;</span><br><span class="line">	return Fprintf(os.Stdout, format, a...)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里看到Println()和Printf()这两个函数其实就一个入参，为什么我能用逗号分隔从而给多个参数呢？</p>
+<p>原因是这样的，<code>a ...interface{}</code>这个其实是slice的一个特殊用法，说明这定义的是一个<em>可变参数</em>，可以接收不定数量的统一类型的参数，定义为…interfaec{}就可以接收不定数量的任意基础类型。定义可变参数时的语法就是在类型前面加上这三个点，这里使用interface就说明可以接收任何类型</p>
+<p>想使用这可变参数的语法也很简单，可以将其作为slice使用，也可以继续将其作为可变参数使用。使用可变参数的语法就是在定义的后面加上这三个点。下面看例子</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">func main()&#123;</span><br><span class="line">    definedThreeDot(&quot;jack&quot;, &quot;rose&quot;, &quot;tom&quot;, &quot;jerry&quot;)//定义多个参数来使用可变参数</span><br><span class="line">&#125;</span><br><span class="line">func definedThreeDot(source ...string) &#123;//定义可变参数，定义时在类型前面加上三个点</span><br><span class="line">	useThreeDot(source...)//将可变参数作为可变参数使用，使用时在定义后面加上三个点</span><br><span class="line">	useThreeDotAsSlice(source)//将可变参数作为slice使用</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func useThreeDotAsSlice(ss []string) &#123;//定义slice来接收可变参数</span><br><span class="line">	fmt.Println(ss)//直接打印slice</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func useThreeDot(ss ...string) &#123;//定义可变参数，定义时在类型前面加上三个点</span><br><span class="line">	for index, s := range ss &#123;//作为slice来遍历可变参数</span><br><span class="line">		fmt.Printf(&quot;index : %d, value : %s \n&quot;, index, s)//index和s都作为可变参数来使用</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/*</span><br><span class="line">结果：</span><br><span class="line">index : 0, value : jack </span><br><span class="line">index : 1, value : rose </span><br><span class="line">index : 2, value : tom </span><br><span class="line">index : 3, value : jerry </span><br><span class="line">[jack rose tom jerry]</span><br><span class="line">*</span><br><span class="line">/</span><br></pre></td></tr></table></figure>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>Go 中的流程控制大致上就这么多，平时项目中使用的也是非常多的，特别是对便利集合时，非常的方便。相信你亲自体验后也会赞不绝口的。</p>
+<p>同时也顺带解释了一下可变参数，结合着slice和流程控制也能对这个可变参数有一个更深的了解。</p>
+<p>源码可以通过’github.com/souyunkutech/gosample’获取。</p>
+<h2 id="关注我们的「微信公众号」"><a href="#关注我们的「微信公众号」" class="headerlink" title="关注我们的「微信公众号」"></a>关注我们的「微信公众号」</h2><p><img src="/images/blog/weixin.png" alt></p>
+<hr>
+<p>首发微信公众号：Go技术栈，ID：GoStack</p>
+<p>版权归作者所有，任何形式转载请联系作者。</p>
+<p>作者：搜云库技术团队<br>出处：<a href="https://gostack.souyunku.com/2019/04/29/if-for-switch-select">https://gostack.souyunku.com/2019/04/29/if-for-switch-select</a></p>
+
+
+        </div>
+
+        
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/tags/Golang/">Golang</a>, <a class="has-link-grey -link" href="/tags/学习资料/">学习资料</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3>
+        <div class="buttons is-centered">
+            
+            
+<a class="button is-info donate">
+    <span class="icon is-small">
+        <i class="fab fa-alipay"></i>
+    </span>
+    <span>支付宝</span>
+    <div class="qrcode"><img src="/images/alipay.png" alt="支付宝"></div>
+</a>
+
+            
+            
+<a class="button is-success donate">
+    <span class="icon is-small">
+        <i class="fab fa-weixin"></i>
+    </span>
+    <span>微信</span>
+    <div class="qrcode"><img src="/images/weixinpay.png" alt="微信"></div>
+</a>
+
+            
+        </div>
+    </div>
+</div>
+
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2019/04/22/basic-knowledge/">
+                <span class="level-item">【跟着我们学Golang】基础结构</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="title is-5 has-text-weight-normal">评论</h3>
+        
+<div id="comment-container"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.4.1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1.4.1/dist/gitalk.min.js"></script>
+<script>
+    var gitalk = new Gitalk({
+        clientID: '0f757b6d452b104e0262',
+        clientSecret: '8b0d6010e0dea6514b92afe1cf155beb52e6158f',
+        id: '47fac6e86718436f574ed1aeb5b4cca2',
+        repo: 'go-stack-comment',
+        owner: 'souyunkutech',
+        admin: "souyunku"
+    })
+    gitalk.render('comment-container')
+</script>
+
+    </div>
+</div>
+</div>
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen  has-order-1 column-left is-sticky">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <nav class="level">
+            <div class="level-item has-text-centered">
+                <div>
+                    
+                        <img class="image is-128x128 has-mb-6" src="/images/avatar.png" alt="栈长">
+                    
+                    
+                    <p class="is-size-4 is-block">
+                        栈长
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-block">
+                        专注于Go技术栈的研究与知识分享
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-flex is-flex-center has-text-grey">
+                        <i class="fas fa-map-marker-alt has-mr-7"></i>
+                        <span>北京</span>
+                    </p>
+                    
+                </div>
+            </div>
+        </nav>
+        <nav class="level is-mobile">
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        文章
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        5
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        分类
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        1
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        标签
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        2
+                    </p>
+                </div>
+            </div>
+        </nav>
+        <div class="level">
+            <a class="level-item button is-link is-rounded" href="/about/#%E5%85%B3%E6%B3%A8%E6%88%91%E4%BB%AC%E7%9A%84%E3%80%8C%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E3%80%8D" target="_blank">
+                关注我们</a>
+        </div>
+        
+        
+        <div class="level is-mobile">
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Github" href="https://github.com/souyunkutech">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Weixin" href="/about/#%E5%85%B3%E6%B3%A8%E6%88%91%E4%BB%AC%E7%9A%84%E3%80%8C%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E3%80%8D">
+                
+                <i class="fab fa-weixin"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Twitter" href="/">
+                
+                <i class="fab fa-twitter"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Dribbble" href="/">
+                
+                <i class="fab fa-dribbble"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="RSS" href="/">
+                
+                <i class="fas fa-rss"></i>
+                
+            </a>
+            
+        </div>
+        
+    </div>
+</div>
+    
+        
+
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            链接
+        </h3>
+        <ul class="menu-list">
+        
+            <li>
+                <a class="level is-mobile" href="https://gostack.souyunku.com" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">Go 技术栈</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">gostack.souyunku.com</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li>
+                <a class="level is-mobile" href="https://team.souyunku.com" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">搜云库技术团队</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">team.souyunku.com</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li>
+                <a class="level is-mobile" href="https://golang.google.cn" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">Go 语言中国官方站点</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">golang.google.cn</span>
+                    </span>
+                </a>
+            </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+
+
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                分类
+            </h3>
+            <ul class="menu-list">
+            <li>
+        <a class="level is-marginless" href="/categories/资料索引/">
+            <span class="level-start">
+                <span class="level-item">资料索引</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">5</span>
+            </span>
+        </a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            标签云
+        </h3>
+        <a href="/tags/Golang/" style="font-size: 10px;">Golang</a> <a href="/tags/学习资料/" style="font-size: 10px;">学习资料</a>
+    </div>
+</div>
+
+    
+    
+        <div class="column-right-shadow is-hidden-widescreen is-sticky">
+        
+            
+<div class="card widget" id="toc">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                目录
+            </h3>
+            <ul class="menu-list"><ul class="menu-list"><li>
+        <a class="is-flex" href="#interface">
+        <span class="has-mr-6">1.1</span>
+        <span>interface</span>
+        </a></li></ul><li>
+        <a class="is-flex" href="#if-else">
+        <span class="has-mr-6">2</span>
+        <span>if-else</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#断言">
+        <span class="has-mr-6">2.1</span>
+        <span>断言</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#switch">
+        <span class="has-mr-6">3</span>
+        <span>switch</span>
+        </a></li><li>
+        <a class="is-flex" href="#for">
+        <span class="has-mr-6">4</span>
+        <span>for</span>
+        </a></li><li>
+        <a class="is-flex" href="#select">
+        <span class="has-mr-6">5</span>
+        <span>select</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#…">
+        <span class="has-mr-6">5.1</span>
+        <span>…</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#总结">
+        <span class="has-mr-6">6</span>
+        <span>总结</span>
+        </a></li><li>
+        <a class="is-flex" href="#关注我们的「微信公众号」">
+        <span class="has-mr-6">7</span>
+        <span>关注我们的「微信公众号」</span>
+        </a></li></ul>
+        </div>
+    </div>
+</div>
+
+        
+            
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            最新文章
+        </h3>
+        
+        <article class="media">
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-04-29T07:50:32.000Z">2019-04-29</time></div>
+                    <a href="/2019/04/29/if-for-switch-select/" class="has-link-black-ter is-size-6">【跟着我们学Golang】流程控制</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/资料索引/">资料索引</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-04-22T09:50:41.000Z">2019-04-22</time></div>
+                    <a href="/2019/04/22/basic-knowledge/" class="has-link-black-ter is-size-6">【跟着我们学Golang】基础结构</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/资料索引/">资料索引</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-04-15T08:32:53.000Z">2019-04-15</time></div>
+                    <a href="/2019/04/15/install-golang/" class="has-link-black-ter is-size-6">【跟着我们学Golang】Go语言全平台安装</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/资料索引/">资料索引</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-04-11T02:36:41.000Z">2019-04-11</time></div>
+                    <a href="/2019/04/11/study-golang-with-us/" class="has-link-black-ter is-size-6">跟着我们学Golang</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/资料索引/">资料索引</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-04-06T04:55:37.000Z">2019-04-06</time></div>
+                    <a href="/2019/04/06/data-index/" class="has-link-black-ter is-size-6">资料索引</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/资料索引/">资料索引</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            归档
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/04/">
+                <span class="level-start">
+                    <span class="level-item">四月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">5</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                标签
+            </h3>
+            <div class="field is-grouped is-grouped-multiline">
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Golang/">
+                        <span class="tag">Golang</span>
+                        <span class="tag is-grey">5</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/学习资料/">
+                        <span class="tag">学习资料</span>
+                        <span class="tag is-grey">5</span>
+                    </a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+        
+        </div>
+    
+</div>
+
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only has-order-3 column-right is-sticky">
+    
+        
+<div class="card widget" id="toc">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                目录
+            </h3>
+            <ul class="menu-list"><ul class="menu-list"><li>
+        <a class="is-flex" href="#interface">
+        <span class="has-mr-6">1.1</span>
+        <span>interface</span>
+        </a></li></ul><li>
+        <a class="is-flex" href="#if-else">
+        <span class="has-mr-6">2</span>
+        <span>if-else</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#断言">
+        <span class="has-mr-6">2.1</span>
+        <span>断言</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#switch">
+        <span class="has-mr-6">3</span>
+        <span>switch</span>
+        </a></li><li>
+        <a class="is-flex" href="#for">
+        <span class="has-mr-6">4</span>
+        <span>for</span>
+        </a></li><li>
+        <a class="is-flex" href="#select">
+        <span class="has-mr-6">5</span>
+        <span>select</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#…">
+        <span class="has-mr-6">5.1</span>
+        <span>…</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#总结">
+        <span class="has-mr-6">6</span>
+        <span>总结</span>
+        </a></li><li>
+        <a class="is-flex" href="#关注我们的「微信公众号」">
+        <span class="has-mr-6">7</span>
+        <span>关注我们的「微信公众号」</span>
+        </a></li></ul>
+        </div>
+    </div>
+</div>
+
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            最新文章
+        </h3>
+        
+        <article class="media">
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-04-29T07:50:32.000Z">2019-04-29</time></div>
+                    <a href="/2019/04/29/if-for-switch-select/" class="has-link-black-ter is-size-6">【跟着我们学Golang】流程控制</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/资料索引/">资料索引</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-04-22T09:50:41.000Z">2019-04-22</time></div>
+                    <a href="/2019/04/22/basic-knowledge/" class="has-link-black-ter is-size-6">【跟着我们学Golang】基础结构</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/资料索引/">资料索引</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-04-15T08:32:53.000Z">2019-04-15</time></div>
+                    <a href="/2019/04/15/install-golang/" class="has-link-black-ter is-size-6">【跟着我们学Golang】Go语言全平台安装</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/资料索引/">资料索引</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-04-11T02:36:41.000Z">2019-04-11</time></div>
+                    <a href="/2019/04/11/study-golang-with-us/" class="has-link-black-ter is-size-6">跟着我们学Golang</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/资料索引/">资料索引</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-04-06T04:55:37.000Z">2019-04-06</time></div>
+                    <a href="/2019/04/06/data-index/" class="has-link-black-ter is-size-6">资料索引</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/资料索引/">资料索引</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            归档
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/04/">
+                <span class="level-start">
+                    <span class="level-item">四月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">5</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                标签
+            </h3>
+            <div class="field is-grouped is-grouped-multiline">
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Golang/">
+                        <span class="tag">Golang</span>
+                        <span class="tag is-grey">5</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/学习资料/">
+                        <span class="tag">学习资料</span>
+                        <span class="tag is-grey">5</span>
+                    </a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+    
+    
+</div>
+
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="/images/logo.png" alt="【跟着我们学Golang】流程控制" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2019 Go技术栈&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-icarus" target="_blank">Icarus</a>
+                
+                </p>
+            </div>
+            <div class="level-end">
+            
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Creative Commons" href="https://creativecommons.org/">
+                        
+                        <i class="fab fa-creative-commons"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/">
+                        
+                        <i class="fab fa-creative-commons-by"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="GitHub" href="https://github.com/souyunkutech">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                </p>
+                
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</footer>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("zh-CN");</script>
+
+
+    
+    
+    
+    <script src="/js/animation.js"></script>
+    
+
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
+    <script src="/js/gallery.js" defer></script>
+    
+
+    
+    
+
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        });
+    });
+</script>
+
+
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    MathJax.Hub.Config({
+        'HTML-CSS': {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+});
+</script>
+
+    
+    
+
+<a id="back-to-top" title="回到顶端" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="/js/back-to-top.js" defer></script>
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script>
+    <script src="/js/clipboard.js" defer></script>
+    
+
+    
+    
+    
+
+
+<script src="/js/main.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="想要查找什么...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(无标题)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js" defer></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css">
+    
+</body>
+</html>
