@@ -1,0 +1,1072 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+<title>【跟着我们学Golang】之面向对象 - Go技术栈</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+    <meta name="description" content="万物皆对象。学过Java编程的都知道Java是一门面向对象的语言，它拥有封装、继承和多态的特性。那可不可以说，拥有封装、继承和多态这一特性的语言就是面向对象的语言呢？仔细想来，也确实是这样的，因为封装、继承和多态这三个特征，并不是Java语言的特征，而是面向对象的三大特征。总结来看，所有包含封装、继承和多态者三大特征的语言都可以说是面向对象的语言。 那么Go语言是否是一门面向对象的语言呢？下面我们">
+<meta name="keywords" content="学习资料,Golang">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【跟着我们学Golang】之面向对象">
+<meta property="og:url" content="https://gostack.souyunku.com/2019/05/13/oo/index.html">
+<meta property="og:site_name" content="Go技术栈">
+<meta property="og:description" content="万物皆对象。学过Java编程的都知道Java是一门面向对象的语言，它拥有封装、继承和多态的特性。那可不可以说，拥有封装、继承和多态这一特性的语言就是面向对象的语言呢？仔细想来，也确实是这样的，因为封装、继承和多态这三个特征，并不是Java语言的特征，而是面向对象的三大特征。总结来看，所有包含封装、继承和多态者三大特征的语言都可以说是面向对象的语言。 那么Go语言是否是一门面向对象的语言呢？下面我们">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://gostack.souyunku.com/images/og_image.png">
+<meta property="og:updated_time" content="2019-05-13T09:19:07.510Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【跟着我们学Golang】之面向对象">
+<meta name="twitter:description" content="万物皆对象。学过Java编程的都知道Java是一门面向对象的语言，它拥有封装、继承和多态的特性。那可不可以说，拥有封装、继承和多态这一特性的语言就是面向对象的语言呢？仔细想来，也确实是这样的，因为封装、继承和多态这三个特征，并不是Java语言的特征，而是面向对象的三大特征。总结来看，所有包含封装、继承和多态者三大特征的语言都可以说是面向对象的语言。 那么Go语言是否是一门面向对象的语言呢？下面我们">
+<meta name="twitter:image" content="https://gostack.souyunku.com/images/og_image.png">
+
+
+
+
+
+
+
+<link rel="icon" href="/images/favicon.svg">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/monokai-sublime.css">
+
+
+    
+    
+    
+    <style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
+    
+
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+    
+
+    
+    
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+
+    
+    
+    
+    
+
+<link rel="stylesheet" href="/css/back-to-top.css">
+
+
+    
+    
+
+    
+    
+<script>
+var _hmt = _hmt || [];
+(function() {
+    var hm = document.createElement("script");
+    hm.src = "//hm.baidu.com/hm.js?a1b4762e2491f4d27483755ea7249b7e";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+    
+    
+
+    
+    
+<link rel="stylesheet" href="/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+    
+    
+    
+
+    
+    
+    
+
+
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="is-3-column">
+    <nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/">
+            
+                <img src="/images/logo.png" alt="【跟着我们学Golang】之面向对象" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item" href="/">主页</a>
+                
+                <a class="navbar-item" href="/archives">文章列表</a>
+                
+                <a class="navbar-item" href="/categories">分类</a>
+                
+                <a class="navbar-item" href="/tags">标签</a>
+                
+                <a class="navbar-item" href="https://team.souyunku.com/zh-cn/blog/02video.html">4T资料</a>
+                
+                <a class="navbar-item" href="/about">关于</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                    
+                    
+                    <a class="navbar-item" target="_blank" title="GitHub" href="https://github.com/souyunkutech">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                    
+                
+                
+                <a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;">
+                    <i class="fas fa-list-ul"></i>
+                </a>
+                
+                
+                <a class="navbar-item search" title="搜索" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main"><div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2019-05-13T09:12:37.000Z">2019-05-13
+                </time>
+                
+                <div class="level-item">
+                    <a class="has-link-grey -link" href="/categories/资料索引/">资料索引</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    33 分钟 读完 (大约 4954 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+            【跟着我们学Golang】之面向对象
+            
+        </h1>
+
+        <div class="content">
+
+            <p>万物皆对象。学过Java编程的都知道Java是一门面向对象的语言，它拥有封装、继承和多态的特性。那可不可以说，拥有封装、继承和多态这一特性的语言就是面向对象的语言呢？<br>仔细想来，也确实是这样的，因为封装、继承和多态这三个特征，并不是Java语言的特征，而是面向对象的三大特征。<br>总结来看，所有包含封装、继承和多态者三大特征的语言都可以说是面向对象的语言。</p>
+<p>那么Go语言是否是一门面向对象的语言呢？下面我们通过举例的方式针对封装、继承和多态这面向对象的三大特征分别进行解释。</p>
+<a id="more"></a>
+<h2 id="封装"><a href="#封装" class="headerlink" title="封装"></a>封装</h2><p>Go中有<code>struct</code>结构体，通过结构体能够实现现实世界中对象的封装。如将学生封装成对象，除了学生的基础信息外，还需要一些学生的基础行为。</p>
+<p>定义结构体的方式之前在<a href="https://gostack.souyunku.com/2019/04/22/basic-knowledge/#%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B">基础结构</a>中进行了简单的解释，并没有针对结构体的方法进行说明。这里先说明一下定义结构体的方法。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">func(alias type) func_name(parameter1 type, parameter2 type2)(ret1 type3, ret2 type4)&#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>定义结构体的方法的语法与函数的语法类似，区别于普通函数，方法的定义在func后有一个括号<code>(alias type)</code>，指定方法的附属结构体，以方便通过结构体来进行方法的使用。</p>
+<p>看到这里不免有些Java的同学觉得不太好接受，毕竟在Java中，对象的方法都是写在class中的，在Go中方法都是写在结构体外的。</p>
+<p>所以可以总结一句，Go中的函数分为两类，一种是有附属于结构体的方法，一种是普通函数。附属于结构体的函数，在使用的过程中，需要结合结构体来使用，必须像Java那样先声明对象，然后结合对象才能使用。<br>普通函数仅有是否可被外部包访问的要求，不需要先声明结构体，结合结构体来使用，开盖即食哈。</p>
+<p>方法的结构体在指定时，alias别名可以随意设置，但是所属类型不能，（此处有坑）下面看一个例子</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import &quot;fmt&quot;</span><br><span class="line"></span><br><span class="line">type Student struct &#123;</span><br><span class="line">	Name    string</span><br><span class="line">	Learned []string</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func (s Student) learnEnglish() &#123;</span><br><span class="line">	s.Learned = append(s.Learned, &quot;i&apos;m fine, thank you&quot;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func (s *Student) learnMath() &#123;</span><br><span class="line">	s.Learned = append(s.Learned, &quot;1 + 1 = 2&quot;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func (s *Student) whoAmI() &#123;</span><br><span class="line">	fmt.Println(&quot;your name is : &quot;, s.Name)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func (s Student) whoAmII() &#123;</span><br><span class="line">	fmt.Println(&quot;your name is : &quot;, s.Name)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	s := Student&#123;Name: &quot;jack&quot;&#125;</span><br><span class="line"></span><br><span class="line">	s.whoAmI()</span><br><span class="line">	s.whoAmII()</span><br><span class="line"></span><br><span class="line">	s.learnEnglish() //学英语</span><br><span class="line">	s.learnMath()    //学数学</span><br><span class="line"></span><br><span class="line">	fmt.Println(s.Name, &quot;学过： &quot;)</span><br><span class="line">	for _, learned := range s.Learned &#123;</span><br><span class="line">		fmt.Printf(&quot;\t %s \n&quot;, learned)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/*</span><br><span class="line">运行结果：</span><br><span class="line">your name is :  jack</span><br><span class="line">your name is :  jack</span><br><span class="line">jack 学过：</span><br><span class="line">	 1 + 1 = 2</span><br><span class="line"></span><br><span class="line">---</span><br><span class="line">没有学过英语？？？</span><br><span class="line">*/</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>append为Go自带函数，向数组和slice中添加元素</p>
+</blockquote>
+<p>这里有四个方法，两个打印名字的方法和两个学习的方法，区别点在于方法的所属类型一个是指针类型，另一个是非指针类型。</p>
+<p>执行结果显示，打印名字的方法都正确输出了名字，但是学习英语和数学后，却显示只学过数学，没学过英语，这岂不是让我等学生的老师很头疼？</p>
+<p>这是为什么呢？</p>
+<p>这样就牵涉到了Go中的值拷贝和地址拷贝了。咱们先简单看一下值拷贝和地址拷贝。</p>
+<h3 id="值拷贝-amp-地址拷贝"><a href="#值拷贝-amp-地址拷贝" class="headerlink" title="值拷贝&amp;地址拷贝"></a>值拷贝&amp;地址拷贝</h3><p>在Java中同样有值拷贝和地址拷贝的说法，学过Java的自然对Go的这点特性会比较容易理解。</p>
+<p>在Go中虽然是都是值拷贝，但是在拷贝的过程中，拷贝的可能是变量的地址，或者是变量的值，不同的内容得到的结果当然是不一样的。</p>
+<p>在函数定义参数时，如果参数类型是指针类型，则函数内修改了参数的内容，函数外同样会察觉到改参数的变化，这就是因为在调用该函数的时候，传递给该函数的值是一个地址，发生的是地址的拷贝，而这个地址指向的参数与函数外的变量是同一个，函数内修改了该地址的内容，相应的，函数外也会发生变化。这个还是通过例子比较好理解。</p>
+<p>咱们继续让Jack学习不同的知识，在上一个代码中继续添加两个函数。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">func learnChinese(s *Student) &#123;</span><br><span class="line">	s.Learned = append(s.Learned, &quot;锄禾日当午，汗滴禾下土&quot;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func learnPingPang(s Student) &#123;</span><br><span class="line">	s.Learned = append(s.Learned, &quot;ping pang&quot;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	s := Student&#123;Name: &quot;jack&quot;&#125; //初始化姓名</span><br><span class="line"></span><br><span class="line">	s.whoAmI()</span><br><span class="line">	s.whoAmII()</span><br><span class="line"></span><br><span class="line">	learnPingPang(s) //学习乒乓球</span><br><span class="line">	learnChinese(&amp;s) //学习中文</span><br><span class="line">	s.learnEnglish() //学英语</span><br><span class="line">	s.learnMath()    //学数学</span><br><span class="line"></span><br><span class="line">	fmt.Println(s.Name, &quot;学过： &quot;)</span><br><span class="line">	for _, learned := range s.Learned &#123;</span><br><span class="line">		fmt.Printf(&quot;\t %s \n&quot;, learned)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/*</span><br><span class="line">运行结果：</span><br><span class="line">your name is :  jack</span><br><span class="line">your name is :  jack</span><br><span class="line">jack 学过：</span><br><span class="line">	 锄禾日当午，汗滴禾下土</span><br><span class="line">	 1 + 1 = 2</span><br><span class="line"></span><br><span class="line">---</span><br><span class="line">没有学过英语？？？</span><br><span class="line">没有学过乒乓？？？</span><br><span class="line">*/</span><br></pre></td></tr></table></figure>
+<p>例子中添加了两个函数learnChinese(s *Student)和learnPingPang(s Student)两个函数，分别接收带指针和不带指针的参数，下面执行的结果却显示Jack只学习了中文没学习乒乓，这也说明了learnPingPang(s Student)这个函数接收的参数发生了值拷贝，传递给该函数的值就是Student对象，而且是生成了一个新的Student对象，所以函数内发生的变化在函数外并不能感知。这个在平时的开发中还是需要特别的注意的。</p>
+<p>看到这里应该就能理解为什么Jack没有学过英语了。(s Student) learnEnglish()这个函数中定义的所属类型是非指针类型，在使用时发生值拷贝，会生成新的Student对象，从而函数内部发生的变化并不会在函数外部有所感知。原来学英语的并不是Jack本人啊。</p>
+<p>了解了如何定义方法之后就可以对封装有一个比较清晰的认识了，Go中的结构体定义对象和结构体方法定义对象的行为，可以满足封装要求了，也算是符合了封装的条件。下面来一个完整的封装例子</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import &quot;fmt&quot;</span><br><span class="line"></span><br><span class="line">type Class struct &#123;</span><br><span class="line">	Name string</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">type School struct &#123;</span><br><span class="line">	Name string</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">type Student struct &#123;</span><br><span class="line">	Name       string</span><br><span class="line">	Age        int</span><br><span class="line">	Height     float64</span><br><span class="line">	Weight     float64</span><br><span class="line">	SchoolInfo School</span><br><span class="line">	ClassInfo  Class</span><br><span class="line">	Learned    []string</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func (s Student) learnEnglish() &#123;</span><br><span class="line">	// append为Go自带函数，向数组和slice中添加元素</span><br><span class="line">	s.Learned = append(s.Learned, &quot;i&apos;m fine, thank you&quot;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func (s *Student) learnMath() &#123;</span><br><span class="line">	s.Learned = append(s.Learned, &quot;1 + 1 = 2&quot;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func (s *Student) whoAmI() &#123;</span><br><span class="line">	fmt.Println(&quot;your name is : &quot;, s.Name, &quot; and your className is : &quot;, s.ClassInfo.Name, &quot; and your schoolName is : &quot;, s.SchoolInfo.Name)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func (s Student) whoAmII() &#123;</span><br><span class="line">	fmt.Println(&quot;your name is : &quot;, s.Name, &quot; and your className is : &quot;, s.ClassInfo.Name, &quot; and your schoolName is : &quot;, s.SchoolInfo.Name)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func learnChinese(s *Student) &#123;</span><br><span class="line">	s.Learned = append(s.Learned, &quot;锄禾日当午，汗滴禾下土&quot;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func learnPingPang(s Student) &#123;</span><br><span class="line">	s.Learned = append(s.Learned, &quot;ping pang&quot;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	/*</span><br><span class="line">		定义对象时可以使用key:value的形式进行赋值，也可以使用value直接赋值，但是两中方式不能同时使用</span><br><span class="line"></span><br><span class="line">		使用key:value时，不需要注意顺序，可以直接赋值</span><br><span class="line">		使用value时，需要注意顺序，按照默认字段顺序进行赋值</span><br><span class="line"></span><br><span class="line">		️注意：：如果最后一个字段与右大括号不在一行，需要在最后一个字段的赋值后加上逗号</span><br><span class="line">	*/</span><br><span class="line">	s := Student&#123;</span><br><span class="line">		Age:        18,</span><br><span class="line">		Weight:     70,</span><br><span class="line">		Height:     180,</span><br><span class="line">		SchoolInfo: School&#123;&quot;北大附中&quot;&#125;,</span><br><span class="line">		Name:       &quot;jack&quot;,</span><br><span class="line">		ClassInfo:  Class&#123;&quot;高二·8班&quot;&#125;,</span><br><span class="line">	&#125; //初始化student对象</span><br><span class="line"></span><br><span class="line">	fmt.Println(&quot;学校： &quot;, s.SchoolInfo.Name)</span><br><span class="line">	fmt.Println(&quot;班级： &quot;, s.ClassInfo.Name)</span><br><span class="line">	fmt.Println(&quot;姓名： &quot;, s.Name)</span><br><span class="line">	fmt.Println(&quot;年龄： &quot;, s.Age, &quot;岁&quot;)</span><br><span class="line">	fmt.Println(&quot;身高： &quot;, s.Height, &quot;cm&quot;)</span><br><span class="line">	fmt.Println(&quot;体重： &quot;, s.Weight, &quot;kg&quot;)</span><br><span class="line"></span><br><span class="line">	s.whoAmI()</span><br><span class="line">	s.whoAmII()</span><br><span class="line"></span><br><span class="line">	learnPingPang(s) //学习乒乓球</span><br><span class="line">	learnChinese(&amp;s) //学习中文</span><br><span class="line">	s.learnEnglish() //学英语</span><br><span class="line">	s.learnMath()    //学数学</span><br><span class="line"></span><br><span class="line">	fmt.Println(s.Name, &quot;学过： &quot;)</span><br><span class="line">	for _, learned := range s.Learned &#123;</span><br><span class="line">		fmt.Printf(&quot;\t %s \n&quot;, learned)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/*</span><br><span class="line">运行结果：</span><br><span class="line">学校：  北大附中</span><br><span class="line">班级：  高二·8班</span><br><span class="line">姓名：  jack</span><br><span class="line">年龄：  18 岁</span><br><span class="line">身高：  180 cm</span><br><span class="line">体重：  70 kg</span><br><span class="line">your name is :  jack  and your className is :  高二·8班  and your schoolName is :  北大附中</span><br><span class="line">your name is :  jack  and your className is :  高二·8班  and your schoolName is :  北大附中</span><br><span class="line">jack 学过：</span><br><span class="line">	 锄禾日当午，汗滴禾下土</span><br><span class="line">	 1 + 1 = 2</span><br><span class="line"></span><br><span class="line">---</span><br><span class="line">没有学过英语</span><br><span class="line">没有学过乒乓</span><br><span class="line">*/</span><br></pre></td></tr></table></figure>
+<p>这里的Jack既有班级信息又有学校信息，既能学中文又能学英文。也算是把学生这个对象封装好了。</p>
+<h2 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h2><p>Java中，继承是说父子类之间的关系，子类继承父类，子类就拥有父类的部分功能。这个继承通过<code>extend</code>关键字就可以实现。在Go中，没有这个关键字，但是也可以做到相同的效果。使用的方式就是结构体的嵌套。我们继续使用学生这个例子进行讲解，现在将学生中的部分信息抽出到People这个结构体中。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import &quot;fmt&quot;</span><br><span class="line"></span><br><span class="line">type Class struct &#123;</span><br><span class="line">	Name string</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">type School struct &#123;</span><br><span class="line">	Name string</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">type People struct &#123;</span><br><span class="line">	Name   string</span><br><span class="line">	Age    int</span><br><span class="line">	Height float64</span><br><span class="line">	Weight float64</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func (p *People) SayHey() &#123;</span><br><span class="line">	fmt.Println(&quot;爱老虎油&quot;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func (p *People) Run() &#123;</span><br><span class="line">	fmt.Println(p.Name, &quot;is running...&quot;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func (p *People) Eat() &#123;</span><br><span class="line">	fmt.Println(p.Name, &quot;is eating...&quot;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func (p *People) Drink() &#123;</span><br><span class="line">	fmt.Println(p.Name, &quot;is drinking...&quot;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">type Student struct &#123;</span><br><span class="line">	People     //内嵌people</span><br><span class="line">	Name       string</span><br><span class="line">	SchoolInfo School</span><br><span class="line">	ClassInfo  Class</span><br><span class="line">	Learned    []string</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func (s *Student) SayHey() &#123;</span><br><span class="line">	fmt.Println(&quot;i love you&quot;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func (s Student) learnEnglish() &#123;</span><br><span class="line">	// append为Go自带函数，向数组和slice中添加元素</span><br><span class="line">	s.Learned = append(s.Learned, &quot;i&apos;m fine, thank you&quot;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func (s *Student) learnMath() &#123;</span><br><span class="line">	s.Learned = append(s.Learned, &quot;1 + 1 = 2&quot;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func (s *Student) whoAmI() &#123;</span><br><span class="line">	fmt.Println(&quot;your name is : &quot;, s.Name, &quot; and your className is : &quot;, s.ClassInfo.Name, &quot; and your schoolName is : &quot;, s.SchoolInfo.Name)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func (s Student) whoAmII() &#123;</span><br><span class="line">	fmt.Println(&quot;your name is : &quot;, s.Name, &quot; and your className is : &quot;, s.ClassInfo.Name, &quot; and your schoolName is : &quot;, s.SchoolInfo.Name)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func learnChinese(s *Student) &#123;</span><br><span class="line">	s.Learned = append(s.Learned, &quot;锄禾日当午，汗滴禾下土&quot;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func learnPingPang(s Student) &#123;</span><br><span class="line">	s.Learned = append(s.Learned, &quot;ping pang&quot;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	s := Student&#123;</span><br><span class="line">		People: People&#123;</span><br><span class="line">			Name:   &quot;jack&quot;, //小名</span><br><span class="line">			Age:    18,</span><br><span class="line">			Weight: 70,</span><br><span class="line">			Height: 180,</span><br><span class="line">		&#125;,</span><br><span class="line">		Name:       &quot;jack·li&quot;, //大名</span><br><span class="line">		SchoolInfo: School&#123;&quot;北大附中&quot;&#125;,</span><br><span class="line">		ClassInfo:  Class&#123;&quot;高二·8班&quot;&#125;,</span><br><span class="line">	&#125; //初始化student对象</span><br><span class="line"></span><br><span class="line">	fmt.Println(&quot;学校： &quot;, s.SchoolInfo.Name)</span><br><span class="line">	fmt.Println(&quot;班级： &quot;, s.ClassInfo.Name)</span><br><span class="line">	fmt.Println(&quot;姓名： &quot;, s.Name) //打印时会打印大名</span><br><span class="line">	fmt.Println(&quot;年龄： &quot;, s.Age, &quot;岁&quot;)</span><br><span class="line">	fmt.Println(&quot;身高： &quot;, s.Height, &quot;cm&quot;)</span><br><span class="line">	fmt.Println(&quot;体重： &quot;, s.Weight, &quot;kg&quot;)</span><br><span class="line"></span><br><span class="line">	s.whoAmI()</span><br><span class="line">	s.whoAmII()</span><br><span class="line"></span><br><span class="line">	learnPingPang(s) //学习乒乓球</span><br><span class="line">	learnChinese(&amp;s) //学习中文</span><br><span class="line">	s.learnEnglish() //学英语</span><br><span class="line">	s.learnMath()    //学数学</span><br><span class="line"></span><br><span class="line">	fmt.Println(s.Name, &quot;学过： &quot;)         //打印时会打印大名</span><br><span class="line">	for _, learned := range s.Learned &#123; //打印学过的知识</span><br><span class="line">		fmt.Printf(&quot;\t %s \n&quot;, learned)</span><br><span class="line">	&#125;</span><br><span class="line">	s.Eat()   //直接使用内嵌类型的方法</span><br><span class="line">	s.Drink() //直接使用内嵌类型的方法</span><br><span class="line">	s.Run()   //直接使用内嵌类型的方法</span><br><span class="line"></span><br><span class="line">	s.SayHey()                        //使用 Student 的sayHey</span><br><span class="line">	fmt.Println(&quot;俺叫：&quot;, s.People.Name) //使用内嵌People的name打印小名</span><br><span class="line">	s.People.SayHey()                 //使用 内嵌People的SayHey</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/*</span><br><span class="line">运行结果：</span><br><span class="line">学校：  北大附中</span><br><span class="line">班级：  高二·8班</span><br><span class="line">姓名：  jack·li</span><br><span class="line">年龄：  18 岁</span><br><span class="line">身高：  180 cm</span><br><span class="line">体重：  70 kg</span><br><span class="line">your name is :  jack·li  and your className is :  高二·8班  and your schoolName is :  北大附中</span><br><span class="line">your name is :  jack·li  and your className is :  高二·8班  and your schoolName is :  北大附中</span><br><span class="line">jack·li 学过： </span><br><span class="line">	 锄禾日当午，汗滴禾下土 </span><br><span class="line">	 1 + 1 = 2 </span><br><span class="line">jack is eating...</span><br><span class="line">jack is drinking...</span><br><span class="line">jack is running...</span><br><span class="line">i love you</span><br><span class="line">俺叫： jack</span><br><span class="line">爱老虎油</span><br><span class="line">*/</span><br></pre></td></tr></table></figure>
+<p>在这个例子中，Student内嵌了People，在定义Student对象时People结构体的字段单独定义在People对象中。但是在使用时，可以直接像<code>s.Eat()</code>，<code>s.Run()</code>，<code>s.Height</code>这样直接调用，也可以使用<code>s.People.SayHey()</code>和<code>s.People.Name</code>这样间接的调用。这就是嵌套的使用方法。</p>
+<p>使用嵌套结构体的方式定义对象之后，就可以直接使用内嵌类型的字段以及方法，但是在使用时遇到相同的字段（Student的Name和People的Name）则直接使用字段时，使用的就是结构体的字段，而不是内嵌类型的字段，或者遇到相同的方法(Student的SayHey()和People的SayHey())则直接使用时，使用的就是结构体的方法，而不是内嵌类型的方法。如果要使用内嵌类型的字段或方法，可以在使用时指明内嵌结构体。这个有点像Java中的覆盖。所以有时在使用时需要注意要使用的是那个具体的字段，避免出错。</p>
+<p>曲线救国也算是救国，Go通过内嵌结构体的形式，变相的实现了面向对象的继承，但是感觉总是比Java中的继承要差些什么。或许差的是继承的那些条条框框吧。</p>
+<h2 id="多态"><a href="#多态" class="headerlink" title="多态"></a>多态</h2><p>相同类型的对象表现出不一样的行为特征叫做多态。这个在Go中同样可以实现。通过<code>interface</code>就可以。</p>
+<p>上节讲到<code>interface</code>是基础类型，这里咱们继续讲解<code>interface</code>作为接口的用法。</p>
+<p>interface作为接口时，可以定义一系列的函数供其他结构体实现，但是只能定义函数，不能定义字段等。它的语法如下</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">type name interface &#123;</span><br><span class="line">    func1([请求参数集]) [返回参数集]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Go中的接口在实现时可没有Java中的implement关键字，在实现接口的时候只需要实现接口中定义的全部的方法就可以认为是实现了这个接口，所以说Go的接口实现是一种隐式的实现，并不是直观上的实现。这点也是类似Java中的接口的，但是接口实现的这种关系并不是那么严格，如果通过ide在开发的过程中，能看到很多定义的方法实现了自己不知道的接口，不过放心，这是一种正常的现象，只要在使用的过程中稍加注意即可。</p>
+<p>让咱们继续优化上面的例子来理解interface接口，还是看下面的例子</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import &quot;fmt&quot;</span><br><span class="line"></span><br><span class="line">type Class struct &#123;</span><br><span class="line">	Name string</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">type School struct &#123;</span><br><span class="line">	Name string</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">type Animal interface &#123;</span><br><span class="line">	Eat()</span><br><span class="line">	Drink()</span><br><span class="line">	Run()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//实现了Animal的三个方法，可认为*People实现了Animal接口</span><br><span class="line">type People struct &#123;</span><br><span class="line">	Name   string</span><br><span class="line">	Age    int</span><br><span class="line">	Height float64</span><br><span class="line">	Weight float64</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func (p *People) SayHey() &#123;</span><br><span class="line">	fmt.Println(&quot;爱老虎油&quot;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//实现Animal接口的Run方法</span><br><span class="line">func (p *People) Run() &#123;</span><br><span class="line">	fmt.Println(p.Name, &quot;is running...&quot;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//实现Animal接口的Eat方法</span><br><span class="line">func (p *People) Eat() &#123;</span><br><span class="line">	fmt.Println(p.Name, &quot;is eating...&quot;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//实现Animal接口的Drink方法</span><br><span class="line">func (p *People) Drink() &#123;</span><br><span class="line">	fmt.Println(p.Name, &quot;is drinking...&quot;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//实现了Animal的三个方法，可认为*Student实现了Animal接口</span><br><span class="line">type Student struct &#123;</span><br><span class="line">	People //内嵌people</span><br><span class="line">	Name       string</span><br><span class="line">	SchoolInfo School</span><br><span class="line">	ClassInfo  Class</span><br><span class="line">	Learned    []string</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//实现Animal接口的Run方法</span><br><span class="line">func (s *Student) Run() &#123;</span><br><span class="line">	fmt.Println(s.Name, &quot;is running around campus&quot;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//实现Animal接口的Eat方法</span><br><span class="line">func (s *Student) Eat() &#123;</span><br><span class="line">	fmt.Println(s.Name, &quot;is eating in the school cafeteria&quot;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//实现Animal接口的Drink方法</span><br><span class="line">func (s *Student) Drink() &#123;</span><br><span class="line">	fmt.Println(s.Name, &quot;is drinking in the school cafeteria&quot;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func (s *Student) SayHey() &#123;</span><br><span class="line">	fmt.Println(&quot;i love you&quot;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func (s Student) learnEnglish() &#123;</span><br><span class="line">	// append为Go自带函数，向数组和slice中添加元素</span><br><span class="line">	s.Learned = append(s.Learned, &quot;i&apos;m fine, thank you&quot;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func (s *Student) learnMath() &#123;</span><br><span class="line">	s.Learned = append(s.Learned, &quot;1 + 1 = 2&quot;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func (s *Student) whoAmI() &#123;</span><br><span class="line">	fmt.Println(&quot;your name is : &quot;, s.Name, &quot; and your className is : &quot;, s.ClassInfo.Name, &quot; and your schoolName is : &quot;, s.SchoolInfo.Name)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func (s Student) whoAmII() &#123;</span><br><span class="line">	fmt.Println(&quot;your name is : &quot;, s.Name, &quot; and your className is : &quot;, s.ClassInfo.Name, &quot; and your schoolName is : &quot;, s.SchoolInfo.Name)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func learnChinese(s *Student) &#123;</span><br><span class="line">	s.Learned = append(s.Learned, &quot;锄禾日当午，汗滴禾下土&quot;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func learnPingPang(s Student) &#123;</span><br><span class="line">	s.Learned = append(s.Learned, &quot;ping pang&quot;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	s := Student&#123;</span><br><span class="line">		People: People&#123;</span><br><span class="line">			Name:   &quot;jack&quot;, //小名</span><br><span class="line">			Age:    18,</span><br><span class="line">			Weight: 70,</span><br><span class="line">			Height: 180,</span><br><span class="line">		&#125;,</span><br><span class="line">		Name:       &quot;jack·li&quot;, //大名</span><br><span class="line">		SchoolInfo: School&#123;&quot;北大附中&quot;&#125;,</span><br><span class="line">		ClassInfo:  Class&#123;&quot;高二·8班&quot;&#125;,</span><br><span class="line">	&#125; //初始化student对象</span><br><span class="line"></span><br><span class="line">	fmt.Println(&quot;学校： &quot;, s.SchoolInfo.Name)</span><br><span class="line">	fmt.Println(&quot;班级： &quot;, s.ClassInfo.Name)</span><br><span class="line">	fmt.Println(&quot;姓名： &quot;, s.Name) //打印时会打印大名</span><br><span class="line">	fmt.Println(&quot;年龄： &quot;, s.Age, &quot;岁&quot;)</span><br><span class="line">	fmt.Println(&quot;身高： &quot;, s.Height, &quot;cm&quot;)</span><br><span class="line">	fmt.Println(&quot;体重： &quot;, s.Weight, &quot;kg&quot;)</span><br><span class="line"></span><br><span class="line">	s.whoAmI()</span><br><span class="line">	s.whoAmII()</span><br><span class="line"></span><br><span class="line">	learnPingPang(s) //学习乒乓球</span><br><span class="line">	learnChinese(&amp;s) //学习中文</span><br><span class="line">	s.learnEnglish() //学英语</span><br><span class="line">	s.learnMath()    //学数学</span><br><span class="line"></span><br><span class="line">	fmt.Println(s.Name, &quot;学过： &quot;) //打印时会打印大名</span><br><span class="line">	for _, learned := range s.Learned &#123; //打印学过的知识</span><br><span class="line">		fmt.Printf(&quot;\t %s \n&quot;, learned)</span><br><span class="line">	&#125;</span><br><span class="line">	s.People.Eat()   //直接使用内嵌类型的方法</span><br><span class="line">	s.People.Drink() //直接使用内嵌类型的方法</span><br><span class="line">	s.People.Run()   //直接使用内嵌类型的方法</span><br><span class="line"></span><br><span class="line">	s.SayHey()                        //使用 Student 的sayHey</span><br><span class="line">	fmt.Println(&quot;俺叫：&quot;, s.People.Name) //使用内嵌People的name打印小名</span><br><span class="line">	s.People.SayHey()                 //使用 内嵌People的SayHey</span><br><span class="line"></span><br><span class="line">	var xiaoming, xiaohua Animal //大家都是动物，尴尬</span><br><span class="line">	//Student的指针类型实现了Animal接口，可以使用&amp;Student来给Animal赋值</span><br><span class="line">	xiaoming = &amp;s //jack的中文名叫xiaoming</span><br><span class="line">	//People的指针类型实现了Animal接口，可以使用&amp;People来给Animal赋值</span><br><span class="line">	xiaohua = &amp;People&#123;Name: &quot;xiaohua&quot;, Age: 5, Height: 100, Weight: 50&#125; //xiaohua还小，每到上学的年级，不是学生</span><br><span class="line">	xiaoming.Run()                                                      //xiaoming在跑步</span><br><span class="line">	xiaohua.Run()                                                       //xiaohua在跑步</span><br><span class="line"></span><br><span class="line">	xiaoming.Eat() //xiaoming在吃东西</span><br><span class="line">	xiaohua.Eat()  //xiaohua在吃东西</span><br><span class="line"></span><br><span class="line">	xiaoming.Drink() //xiaoming在吃东西</span><br><span class="line">	xiaohua.Drink()  //xiaohua在吃东西</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/*</span><br><span class="line">运行结果：</span><br><span class="line">学校：  北大附中</span><br><span class="line">班级：  高二·8班</span><br><span class="line">姓名：  jack·li</span><br><span class="line">年龄：  18 岁</span><br><span class="line">身高：  180 cm</span><br><span class="line">体重：  70 kg</span><br><span class="line">your name is :  jack  and your className is :  高二·8班  and your schoolName is :  北大附中</span><br><span class="line">your name is :  jack  and your className is :  高二·8班  and your schoolName is :  北大附中</span><br><span class="line">jack 学过：</span><br><span class="line">	 锄禾日当午，汗滴禾下土</span><br><span class="line">	 1 + 1 = 2</span><br><span class="line">jack·li is eating in the school cafeteria</span><br><span class="line">jack·li is drinking in the school cafeteria</span><br><span class="line">jack·li is running around campus</span><br><span class="line">i love you</span><br><span class="line">俺叫： jack</span><br><span class="line">爱老虎油</span><br><span class="line">jack·li is running around campus</span><br><span class="line">xiaohua is running...</span><br><span class="line">jack·li is eating in the school cafeteria</span><br><span class="line">xiaohua is eating...</span><br><span class="line">jack·li is drinking in the school cafeteria</span><br><span class="line">xiaohua is drinking...</span><br><span class="line"></span><br><span class="line">*/</span><br></pre></td></tr></table></figure>
+<p>将People的三个方法抽象成接口<code>Anmial</code>，让People和Student两个结构都实现Animal的三个方法。声明xiaohua和xiaoming两个对象为Animal类型，给xiaohua声明一个还没上学People对象，给xiaoming声明一个已经上学的Student对象，最终得到了不一样的结果。</p>
+<p>这里可能会有疑问，问什么将jack赋值给xiaoming时，给xiaoming的是<code>&amp;s</code>指针地址。这要从函数的实现说起。因为函数的实现指定的是指针形式的类型，在赋值时需要赋予指针类型的值才不会发生值拷贝，而且可以在使用的过程中修改对象中的值。但是在使用时可以不加指针直接使用，比如<code>s.SayHey()</code>就可以直接使用，不用转换为指针类型。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>Go通过interface也实现了面向对象中多态的特征。现在总结来看，Go能够直接实现封装和多态，变相的实现继承的概念，这个在网络上被人称为是不完全的面向对象或者是弱面向对象，不过对于面向对象的开发，这已经够用了。</p>
+<p>源码可以通过’github.com/souyunkutech/gosample’获取。</p>
+<h2 id="关注我们的「微信公众号」"><a href="#关注我们的「微信公众号」" class="headerlink" title="关注我们的「微信公众号」"></a>关注我们的「微信公众号」</h2><p><img src="/images/blog/weixin.png" alt></p>
+<hr>
+<p>首发微信公众号：Go技术栈，ID：GoStack</p>
+<p>版权归作者所有，任何形式转载请联系作者。</p>
+<p>作者：搜云库技术团队<br>出处：<a href="https://gostack.souyunku.com/2019/05/13/oo">https://gostack.souyunku.com/2019/05/13/oo</a></p>
+
+
+        </div>
+
+        
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/tags/Golang/">Golang</a>, <a class="has-link-grey -link" href="/tags/学习资料/">学习资料</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3>
+        <div class="buttons is-centered">
+            
+            
+<a class="button is-info donate">
+    <span class="icon is-small">
+        <i class="fab fa-alipay"></i>
+    </span>
+    <span>支付宝</span>
+    <div class="qrcode"><img src="/images/alipay.png" alt="支付宝"></div>
+</a>
+
+            
+            
+<a class="button is-success donate">
+    <span class="icon is-small">
+        <i class="fab fa-weixin"></i>
+    </span>
+    <span>微信</span>
+    <div class="qrcode"><img src="/images/weixinpay.png" alt="微信"></div>
+</a>
+
+            
+        </div>
+    </div>
+</div>
+
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2019/04/29/if-for-switch-select/">
+                <span class="level-item">【跟着我们学Golang】流程控制</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="title is-5 has-text-weight-normal">评论</h3>
+        
+<div id="comment-container"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.4.1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1.4.1/dist/gitalk.min.js"></script>
+<script>
+    var gitalk = new Gitalk({
+        clientID: '0f757b6d452b104e0262',
+        clientSecret: '8b0d6010e0dea6514b92afe1cf155beb52e6158f',
+        id: 'cdcacf7d8bd904357e1dce29f321be68',
+        repo: 'go-stack-comment',
+        owner: 'souyunkutech',
+        admin: "souyunku"
+    })
+    gitalk.render('comment-container')
+</script>
+
+    </div>
+</div>
+</div>
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen  has-order-1 column-left is-sticky">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <nav class="level">
+            <div class="level-item has-text-centered">
+                <div>
+                    
+                        <img class="image is-128x128 has-mb-6" src="/images/avatar.png" alt="栈长">
+                    
+                    
+                    <p class="is-size-4 is-block">
+                        栈长
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-block">
+                        专注于Go技术栈的研究与知识分享
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-flex is-flex-center has-text-grey">
+                        <i class="fas fa-map-marker-alt has-mr-7"></i>
+                        <span>北京</span>
+                    </p>
+                    
+                </div>
+            </div>
+        </nav>
+        <nav class="level is-mobile">
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        文章
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        6
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        分类
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        1
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        标签
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        2
+                    </p>
+                </div>
+            </div>
+        </nav>
+        <div class="level">
+            <a class="level-item button is-link is-rounded" href="/about/#%E5%85%B3%E6%B3%A8%E6%88%91%E4%BB%AC%E7%9A%84%E3%80%8C%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E3%80%8D" target="_blank">
+                关注我们</a>
+        </div>
+        
+        
+        <div class="level is-mobile">
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Github" href="https://github.com/souyunkutech">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Weixin" href="/about/#%E5%85%B3%E6%B3%A8%E6%88%91%E4%BB%AC%E7%9A%84%E3%80%8C%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E3%80%8D">
+                
+                <i class="fab fa-weixin"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Twitter" href="/">
+                
+                <i class="fab fa-twitter"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Dribbble" href="/">
+                
+                <i class="fab fa-dribbble"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="RSS" href="/">
+                
+                <i class="fas fa-rss"></i>
+                
+            </a>
+            
+        </div>
+        
+    </div>
+</div>
+    
+        
+
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            链接
+        </h3>
+        <ul class="menu-list">
+        
+            <li>
+                <a class="level is-mobile" href="https://gostack.souyunku.com" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">Go 技术栈</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">gostack.souyunku.com</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li>
+                <a class="level is-mobile" href="https://team.souyunku.com" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">搜云库技术团队</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">team.souyunku.com</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li>
+                <a class="level is-mobile" href="https://golang.google.cn" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">Go 语言中国官方站点</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">golang.google.cn</span>
+                    </span>
+                </a>
+            </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+
+
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                分类
+            </h3>
+            <ul class="menu-list">
+            <li>
+        <a class="level is-marginless" href="/categories/资料索引/">
+            <span class="level-start">
+                <span class="level-item">资料索引</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">6</span>
+            </span>
+        </a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            标签云
+        </h3>
+        <a href="/tags/Golang/" style="font-size: 10px;">Golang</a> <a href="/tags/学习资料/" style="font-size: 10px;">学习资料</a>
+    </div>
+</div>
+
+    
+    
+        <div class="column-right-shadow is-hidden-widescreen is-sticky">
+        
+            
+<div class="card widget" id="toc">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                目录
+            </h3>
+            <ul class="menu-list"><li>
+        <a class="is-flex" href="#封装">
+        <span class="has-mr-6">1</span>
+        <span>封装</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#值拷贝-amp-地址拷贝">
+        <span class="has-mr-6">1.1</span>
+        <span>值拷贝&amp;地址拷贝</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#继承">
+        <span class="has-mr-6">2</span>
+        <span>继承</span>
+        </a></li><li>
+        <a class="is-flex" href="#多态">
+        <span class="has-mr-6">3</span>
+        <span>多态</span>
+        </a></li><li>
+        <a class="is-flex" href="#总结">
+        <span class="has-mr-6">4</span>
+        <span>总结</span>
+        </a></li><li>
+        <a class="is-flex" href="#关注我们的「微信公众号」">
+        <span class="has-mr-6">5</span>
+        <span>关注我们的「微信公众号」</span>
+        </a></li></ul>
+        </div>
+    </div>
+</div>
+
+        
+            
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            最新文章
+        </h3>
+        
+        <article class="media">
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-05-13T09:12:37.000Z">2019-05-13</time></div>
+                    <a href="/2019/05/13/oo/" class="has-link-black-ter is-size-6">【跟着我们学Golang】之面向对象</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/资料索引/">资料索引</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-04-29T07:50:32.000Z">2019-04-29</time></div>
+                    <a href="/2019/04/29/if-for-switch-select/" class="has-link-black-ter is-size-6">【跟着我们学Golang】流程控制</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/资料索引/">资料索引</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-04-22T09:50:41.000Z">2019-04-22</time></div>
+                    <a href="/2019/04/22/basic-knowledge/" class="has-link-black-ter is-size-6">【跟着我们学Golang】基础结构</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/资料索引/">资料索引</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-04-15T08:32:53.000Z">2019-04-15</time></div>
+                    <a href="/2019/04/15/install-golang/" class="has-link-black-ter is-size-6">【跟着我们学Golang】Go语言全平台安装</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/资料索引/">资料索引</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-04-11T02:36:41.000Z">2019-04-11</time></div>
+                    <a href="/2019/04/11/study-golang-with-us/" class="has-link-black-ter is-size-6">跟着我们学Golang</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/资料索引/">资料索引</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            归档
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/05/">
+                <span class="level-start">
+                    <span class="level-item">五月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/04/">
+                <span class="level-start">
+                    <span class="level-item">四月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">5</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                标签
+            </h3>
+            <div class="field is-grouped is-grouped-multiline">
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Golang/">
+                        <span class="tag">Golang</span>
+                        <span class="tag is-grey">6</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/学习资料/">
+                        <span class="tag">学习资料</span>
+                        <span class="tag is-grey">6</span>
+                    </a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+        
+        </div>
+    
+</div>
+
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only has-order-3 column-right is-sticky">
+    
+        
+<div class="card widget" id="toc">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                目录
+            </h3>
+            <ul class="menu-list"><li>
+        <a class="is-flex" href="#封装">
+        <span class="has-mr-6">1</span>
+        <span>封装</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#值拷贝-amp-地址拷贝">
+        <span class="has-mr-6">1.1</span>
+        <span>值拷贝&amp;地址拷贝</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#继承">
+        <span class="has-mr-6">2</span>
+        <span>继承</span>
+        </a></li><li>
+        <a class="is-flex" href="#多态">
+        <span class="has-mr-6">3</span>
+        <span>多态</span>
+        </a></li><li>
+        <a class="is-flex" href="#总结">
+        <span class="has-mr-6">4</span>
+        <span>总结</span>
+        </a></li><li>
+        <a class="is-flex" href="#关注我们的「微信公众号」">
+        <span class="has-mr-6">5</span>
+        <span>关注我们的「微信公众号」</span>
+        </a></li></ul>
+        </div>
+    </div>
+</div>
+
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            最新文章
+        </h3>
+        
+        <article class="media">
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-05-13T09:12:37.000Z">2019-05-13</time></div>
+                    <a href="/2019/05/13/oo/" class="has-link-black-ter is-size-6">【跟着我们学Golang】之面向对象</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/资料索引/">资料索引</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-04-29T07:50:32.000Z">2019-04-29</time></div>
+                    <a href="/2019/04/29/if-for-switch-select/" class="has-link-black-ter is-size-6">【跟着我们学Golang】流程控制</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/资料索引/">资料索引</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-04-22T09:50:41.000Z">2019-04-22</time></div>
+                    <a href="/2019/04/22/basic-knowledge/" class="has-link-black-ter is-size-6">【跟着我们学Golang】基础结构</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/资料索引/">资料索引</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-04-15T08:32:53.000Z">2019-04-15</time></div>
+                    <a href="/2019/04/15/install-golang/" class="has-link-black-ter is-size-6">【跟着我们学Golang】Go语言全平台安装</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/资料索引/">资料索引</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-04-11T02:36:41.000Z">2019-04-11</time></div>
+                    <a href="/2019/04/11/study-golang-with-us/" class="has-link-black-ter is-size-6">跟着我们学Golang</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/资料索引/">资料索引</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            归档
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/05/">
+                <span class="level-start">
+                    <span class="level-item">五月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/04/">
+                <span class="level-start">
+                    <span class="level-item">四月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">5</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                标签
+            </h3>
+            <div class="field is-grouped is-grouped-multiline">
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Golang/">
+                        <span class="tag">Golang</span>
+                        <span class="tag is-grey">6</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/学习资料/">
+                        <span class="tag">学习资料</span>
+                        <span class="tag is-grey">6</span>
+                    </a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+    
+    
+</div>
+
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="/images/logo.png" alt="【跟着我们学Golang】之面向对象" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2019 Go技术栈&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-icarus" target="_blank">Icarus</a>
+                
+                </p>
+            </div>
+            <div class="level-end">
+            
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Creative Commons" href="https://creativecommons.org/">
+                        
+                        <i class="fab fa-creative-commons"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/">
+                        
+                        <i class="fab fa-creative-commons-by"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="GitHub" href="https://github.com/souyunkutech">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                </p>
+                
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</footer>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("zh-CN");</script>
+
+
+    
+    
+    
+    <script src="/js/animation.js"></script>
+    
+
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
+    <script src="/js/gallery.js" defer></script>
+    
+
+    
+    
+
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        });
+    });
+</script>
+
+
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    MathJax.Hub.Config({
+        'HTML-CSS': {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+});
+</script>
+
+    
+    
+
+<a id="back-to-top" title="回到顶端" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="/js/back-to-top.js" defer></script>
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script>
+    <script src="/js/clipboard.js" defer></script>
+    
+
+    
+    
+    
+
+
+<script src="/js/main.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="想要查找什么...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(无标题)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js" defer></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css">
+    
+</body>
+</html>
